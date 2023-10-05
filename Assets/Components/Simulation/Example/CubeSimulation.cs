@@ -23,4 +23,9 @@ public class CubeSimulation : Simulation
 
         if (simState) simState.rotation = cube.rotation;
     }
+
+    public void SetCubeSize(float value)
+    {
+        if (cube) cube.localScale = value * Vector3.one;
+    }
 }
