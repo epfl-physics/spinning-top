@@ -20,6 +20,7 @@ public class ClassicEulerAngles : MonoBehaviour
 
     [Header("Reference Object")]
     [SerializeField] private Transform referenceObject;
+    [SerializeField] private float initialRotationZ = 0;
 
     private void Start()
     {
@@ -28,21 +29,18 @@ public class ClassicEulerAngles : MonoBehaviour
 
     public void SetPhi(float value)
     {
-        Debug.Log("ClassicEulerAngles > SetPhi");
         phi = value;
         Redraw();
     }
 
     public void SetTheta(float value)
     {
-        Debug.Log("ClassicEulerAngles > SetTheta");
         theta = value;
         Redraw();
     }
 
     public void SetPsi(float value)
     {
-        Debug.Log("ClassicEulerAngles > SetPsi");
         psi = value;
         Redraw();
     }
@@ -55,7 +53,7 @@ public class ClassicEulerAngles : MonoBehaviour
         Vector3 x3 = basisLength * Vector3.up;
 
         // Rotate the basis
-        Quaternion rotation = Quaternion.AngleAxis(-90, Vector3.forward);
+        Quaternion rotation = Quaternion.AngleAxis(initialRotationZ, Vector3.forward);
         Vector3 y1 = Quaternion.AngleAxis(-phi, Vector3.up) * x1;
         Vector3 y2 = Quaternion.AngleAxis(-phi, Vector3.up) * x2;
         rotation = Quaternion.AngleAxis(-phi, Vector3.up) * rotation;

@@ -10,12 +10,13 @@ public class TopSimulation : Simulation
     [SerializeField] private Transform disk;
     [SerializeField] private Transform trail;
 
-    [Header("Parameters")]
+    [Header("Settings")]
     [SerializeField] private float gravity = 9.81f;
     [SerializeField, Tooltip("In meters.")] private float rodLength = 2;
     [SerializeField, Tooltip("In meters.")] private float diskRadius = 1;
     [SerializeField, Tooltip("Normalized disk distance along the rod [0, 1]."), Range(0, 1)]
     private float diskOffset = 0.8f;
+    [SerializeField, Tooltip("Whether to draw the trail")] private bool drawTrail;
 
     [Header("Initial Conditions")]
     [SerializeField, Range(0, 90), Tooltip("Polar angle [deg].")] private float theta0 = 0;
@@ -41,6 +42,7 @@ public class TopSimulation : Simulation
 
     // Ground constraint
     private double thetaMaxRad;
+    private const double TWOPI = 2 * Math.PI;
     private const double DEG2RAD = Math.PI / 180;
     private const double RAD2DEG = 180 / Math.PI;
 
@@ -48,14 +50,6 @@ public class TopSimulation : Simulation
 
     // Current state of the top (i.e. Euler angles)
     public TopData data;
-
-    // private void OnValidate()
-    // {
-    //     InitializeTop();
-    //     EnforceConstraints();
-    //     UpdateRod();
-    //     UpdateDisk();
-    // }
 
     private void Awake()
     {
@@ -163,7 +157,7 @@ public class TopSimulation : Simulation
 
     private void UpdateTrail()
     {
-        if (trail) trail.localPosition = rodLength * currentDirection;
+        if (trail && drawTrail) trail.localPosition = rodLength * currentDirection;
     }
 
     private void EnforceConstraints()
@@ -211,6 +205,10 @@ public class TopSimulation : Simulation
         x[1] += deltaTime * (xdot[1] + 0.5 * xdot[4] * deltaTime);
         x[2] += deltaTime * (xdot[2] + 0.5 * xdot[5] * deltaTime);
 
+        x[0] = LoopAngle(x[0]);
+        x[1] = LoopAngle(x[1]);
+        x[2] = LoopAngle(x[2]);
+
         // Compute new accelerations and update velocities
         double[] aNew = ComputeAccelerations();
         x[3] += 0.5 * (xdot[3] + aNew[0]) * deltaTime;
@@ -224,6 +222,14 @@ public class TopSimulation : Simulation
         xdot[3] = aNew[0];
         xdot[4] = aNew[1];
         xdot[5] = aNew[2];
+    }
+
+    private double LoopAngle(double value)
+    {
+        double result = value;
+        if (value > TWOPI) result -= TWOPI;
+        if (value < 0) result += TWOPI;
+        return result;
     }
 
     private Vector3 SphericalToCartesian(float a1, float a2, float a3)
