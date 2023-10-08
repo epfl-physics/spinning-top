@@ -12,10 +12,9 @@ public class CameraOrbitEditor : Editor
     SerializedProperty clampAzimuthalAngle;
     SerializedProperty minAzimuthalAngle;
     SerializedProperty maxAzimuthalAngle;
-    SerializedProperty zoomSpeed;
     SerializedProperty minDistance;
     SerializedProperty maxDistance;
-
+    SerializedProperty zoomSlider;
 
     private void OnEnable()
     {
@@ -28,9 +27,9 @@ public class CameraOrbitEditor : Editor
         clampAzimuthalAngle = serializedObject.FindProperty("clampAzimuthalAngle");
         minAzimuthalAngle = serializedObject.FindProperty("minAzimuthalAngle");
         maxAzimuthalAngle = serializedObject.FindProperty("maxAzimuthalAngle");
-        zoomSpeed = serializedObject.FindProperty("zoomSpeed");
         minDistance = serializedObject.FindProperty("minDistance");
         maxDistance = serializedObject.FindProperty("maxDistance");
+        zoomSlider = serializedObject.FindProperty("zoomSlider");
     }
 
     public override void OnInspectorGUI()
@@ -59,9 +58,9 @@ public class CameraOrbitEditor : Editor
             EditorGUILayout.PropertyField(canZoom);
             if (canZoom.boolValue)
             {
-                EditorGUILayout.PropertyField(zoomSpeed);
                 EditorGUILayout.PropertyField(minDistance);
                 EditorGUILayout.PropertyField(maxDistance);
+                EditorGUILayout.PropertyField(zoomSlider);
             }
         }
         else

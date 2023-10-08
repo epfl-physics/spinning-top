@@ -6,6 +6,7 @@ public class ClassicEulerAngles : MonoBehaviour
     [SerializeField] private float phi;
     [SerializeField] private float theta;
     [SerializeField] private float psi;
+    [SerializeField] private bool broadcastValues;
 
     [Header("Euler Angle Displays")]
     [SerializeField] private ClassicEulerAngle phiDisplay;
@@ -21,6 +22,8 @@ public class ClassicEulerAngles : MonoBehaviour
     [Header("Reference Object")]
     [SerializeField] private Transform referenceObject;
     [SerializeField] private float initialRotationZ = 0;
+
+    public static event System.Action<float, float, float> OnValuesChanged;
 
     private void Start()
     {
@@ -91,5 +94,16 @@ public class ClassicEulerAngles : MonoBehaviour
 
         // Update the reference object's orientation
         if (referenceObject) referenceObject.rotation = rotation;
+
+        // Broadcast values
+        if (broadcastValues) OnValuesChanged?.Invoke(theta, phi, psi);
+    }
+
+    public void Reset()
+    {
+        theta = 0;
+        phi = 0;
+        psi = 0;
+        Redraw();
     }
 }

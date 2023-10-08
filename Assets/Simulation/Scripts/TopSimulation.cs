@@ -284,7 +284,6 @@ public class TopSimulation : Simulation
         // Only set if the simulation is not running
         if (!IsPaused) return;
 
-        Debug.Log("TopSimulation > SetTheta0");
         this.theta0 = theta0;
         Initialize();
         Redraw();
@@ -295,7 +294,6 @@ public class TopSimulation : Simulation
         // Only set if the simulation is not running
         if (!IsPaused) return;
 
-        Debug.Log("TopSimulation > SetPhi0");
         this.phi0 = phi0;
         Initialize();
         Redraw();
@@ -306,7 +304,6 @@ public class TopSimulation : Simulation
         // Only set if the simulation is not running
         if (!IsPaused) return;
 
-        Debug.Log("TopSimulation > SetPsi0");
         this.psi0 = psi0;
         Initialize();
         Redraw();
@@ -314,7 +311,6 @@ public class TopSimulation : Simulation
 
     public void SetInitialEulerAngles(float theta, float phi, float psi)
     {
-        Debug.Log("TopSimulation > SetInitialEulerAngles");
         theta0 = theta;
         phi0 = phi;
         psi0 = psi;
