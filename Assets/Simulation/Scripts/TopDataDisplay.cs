@@ -11,6 +11,13 @@ public class TopDataDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI angularMomentumValue;
     [SerializeField] private TextMeshProUGUI angularVelocityValue;
 
+    [SerializeField] private TextMeshProUGUI fpsValue;
+
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
+
     private void Update()
     {
         if (!sim) return;
@@ -21,5 +28,7 @@ public class TopDataDisplay : MonoBehaviour
 
         if (angularMomentumValue) angularMomentumValue.text = sim.AngularMomentum().magnitude.ToString("0.000");
         if (angularVelocityValue) angularVelocityValue.text = sim.AngularVelocity().magnitude.ToString("0.000");
+
+        if (fpsValue) fpsValue.text = (Time.frameCount / Time.time).ToString("0.0");
     }
 }

@@ -21,7 +21,7 @@ public class CameraOrbit : MonoBehaviour
     public bool canZoom = true;
     public float minDistance = 1;
     public float maxDistance = 20;
-    public float zoomSpeed = 1;
+    public CustomSlider zoomSlider;
 
     private bool eventSystemIsPresent;
 
@@ -95,10 +95,31 @@ public class CameraOrbit : MonoBehaviour
 
             _canZoom = canZoom;
             canZoom = false;
+
+            SetZoomSliderInteractability(false);
         }
         else
         {
             Initialize();
+        }
+
+        if (zoomSlider)
+        {
+            // Fix the slider bounds
+            zoomSlider.minValue = minDistance;
+            zoomSlider.maxValue = maxDistance;
+
+            // Set the initial slider value based on where the camera will end up
+            if (TryGetComponent<CameraController>(out var controller))
+            {
+                Vector3 targetPosition = target ? target.localPosition : Vector3.zero;
+                float distance = Vector3.Distance(controller.targetPosition, targetPosition);
+                zoomSlider.value = maxDistance - distance + minDistance;
+            }
+            else
+            {
+                zoomSlider.value = maxDistance - currentDistance + minDistance;
+            }
         }
     }
 
@@ -111,10 +132,7 @@ public class CameraOrbit : MonoBehaviour
             pointerIsOverGameObject = EventSystem.current.IsPointerOverGameObject();
         }
 
-        // Let orbit and zoom methods decide whether to care about the 
-        // pointer being over a UI element
         if (canOrbit) HandleOrbit(pointerIsOverGameObject);
-        if (canZoom) HandleZoom(pointerIsOverGameObject);
     }
 
     private void HandleOrbit(bool pointerIsOverGameObject)
@@ -162,48 +180,34 @@ public class CameraOrbit : MonoBehaviour
         }
     }
 
-    private void HandleZoom(bool pointerIsOverGameObject)
+    public void SetZoomValue(float value)
     {
-        float zoomInput = GetZoomInput();
-        if (Mathf.Abs(zoomInput) > float.Epsilon) // check if non-zero
-        {
-            currentDistance -= zoomInput * zoomSpeed;
-            currentDistance = Mathf.Clamp(currentDistance, minDistance, maxDistance);
+        if (!canZoom) return;
 
-            // Adjust camera position
-            Vector3 direction = (transform.position - target.position).normalized;
-            transform.position = target.position + direction * currentDistance;
-        }
-    }
+        currentDistance = maxDistance - value + minDistance;
 
-    private float GetZoomInput()
-    {
-        // Mouse or trackpad scroll
-        float zoomInput = Input.GetAxis("Mouse ScrollWheel");
-
-        // Pinch-to-zoom for touch devices
-        if (Input.touchCount == 2)
-        {
-            Touch touchZero = Input.GetTouch(0);
-            Touch touchOne = Input.GetTouch(1);
-
-            // Calculate previous and current distances between touches
-            Vector2 touchZeroOffset = touchZero.position - touchZero.deltaPosition;
-            Vector2 touchOneOffset = touchOne.position - touchOne.deltaPosition;
-            float prevTouchDeltaMag = (touchZeroOffset - touchOneOffset).magnitude;
-            float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
-
-            // Calculate the difference in the distances between touches
-            zoomInput = (prevTouchDeltaMag - touchDeltaMag) * zoomSpeed * 0.01f;
-        }
-
-        return zoomInput;
+        // Adjust camera position
+        Vector3 direction = (transform.position - target.position).normalized;
+        transform.position = target.position + direction * currentDistance;
     }
 
     public void HandleCameraMovementComplete(Vector3 cameraPosition, Quaternion cameraRotation)
     {
         Initialize();
+        SetZoomSliderInteractability(true);
         canOrbit = _canOrbit;
         canZoom = _canZoom;
+    }
+
+    private void SetZoomSliderInteractability(bool value)
+    {
+        if (zoomSlider)
+        {
+            zoomSlider.interactable = value;
+            if (zoomSlider.TryGetComponent(out CursorHoverUI cursorHover))
+            {
+                cursorHover.enabled = value;
+            }
+        }
     }
 }

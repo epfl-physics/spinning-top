@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7690fd201bb074fbeb47bd71491cd777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0.35686275, g: 0.67058825, b: 0.94509804, a: 1}
+  color: {r: 1, g: 0.5568628, b: 0.41568628, a: 1}
   numSides: 36
   radius: 0.24000001
   height: 0.34641019
@@ -512,7 +512,6 @@ MonoBehaviour:
   components: {x: 1.5, y: 1, z: 0}
   color: {r: 1, g: 0.5568628, b: 0.41568628, a: 1}
   lineWidth: 0.2
-  sortOrder: 0
   interactable: 1
   dragPlaneDistance: 20
   tailClickZone: {fileID: 3367963281930647689}
