@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class TopSimulation : Simulation
 {
+    [SerializeField] private TopSimulationState simState;
     [SerializeField] private bool autoPlay;
 
     [Header("Components")]
@@ -14,86 +15,122 @@ public class TopSimulation : Simulation
     [SerializeField] private float gravity = 9.81f;
     [SerializeField, Tooltip("In meters.")] private float rodLength = 2;
     [SerializeField, Tooltip("In meters.")] private float diskRadius = 1;
-    [SerializeField, Tooltip("Normalized disk distance along the rod [0, 1]."), Range(0, 1)]
-    private float diskOffset = 0.8f;
+    [SerializeField, Tooltip("In kilograms.")] private float diskMass = 1;
+    [SerializeField, Tooltip("Disk distance along the rod in meters.")] private float diskOffset = 2.4f;
     [SerializeField, Tooltip("Whether to draw the trail")] private bool drawTrail;
 
     [Header("Initial Conditions")]
-    [SerializeField, Range(0, 90), Tooltip("Polar angle [deg].")] private float theta0 = 0;
-    [SerializeField, Range(-180, 180), Tooltip("Azimuthal angle [deg].")] private float phi0 = 0;
-    [SerializeField, Range(0, 360), Tooltip("Spin angle [deg].")] private float psi0 = 0;
+    [SerializeField, Range(0, 180), Tooltip("Nutation angle [deg].")] private float theta0 = 0;
+    [SerializeField, Range(-180, 180), Tooltip("Precession angle [deg].")] private float phi0 = 0;
+    [SerializeField, Range(0, 360), Tooltip("Intrinsic rotation [deg].")] private float psi0 = 0;
+    [SerializeField, Range(-10, 10), Tooltip("d(theta)/dt [deg / s]")] private float thetaDot0 = 0; // [deg / s]
+    [SerializeField, Range(-50, 50), Tooltip("d(phi)/dt [deg / s]")] private float phiDot0 = 0; // [deg / s]
+    [SerializeField, Range(-4000, 4000), Tooltip("d(psi)/dt [deg / s]")] private float psiDot0 = 2000; // [deg / s]
 
     [Header("Solver")]
     [SerializeField, Min(1)] private int numSubsteps = 10;
+    private enum Solver { Leapfrog, Yoshida }
+    [SerializeField] private Solver solver = Solver.Leapfrog;
 
-    [SerializeField] private float thetaDot0; // [deg / s]
-    [SerializeField] private float phiDot0; // [deg / s]
-    [SerializeField] private float psiDot0 = 1000; // [deg / s]
-
-    private Vector3 currentDirection;
+    // Current state of the top (i.e. Euler angles, derivatives, moment of inertia)
+    private TopData data;
 
     // ODE variables
     private double[] x;
-    private double[] xdot;
+    private double[] v;
+    private double[] a;
 
-    // Moment of inertia
+    // Moment of inertia components
     private double I1; // = I2
     private double I3;
 
+    // Conversion factors
+    private static readonly double TWOPI = 2 * Math.PI;
+    private static readonly double DEG2RAD = Math.PI / 180;
+    private static readonly double RAD2DEG = 180 / Math.PI;
+
+    // Yoshida constants
+    private static readonly double w1 = 1.0 / (2.0 - Math.Pow(2.0, 1.0 / 3.0));
+    private static readonly double w0 = -Math.Pow(2.0, 1.0 / 3.0) * w1;
+    private static readonly double[] c = { 0.5 * w1, 0.5 * (w0 + w1), 0.5 * (w0 + w1), 0.5 * w1 };
+    private static readonly double[] d = { w1, w0, w1 };
+
     // Ground constraint
     private double thetaMaxRad;
-    private const double TWOPI = 2 * Math.PI;
-    private const double DEG2RAD = Math.PI / 180;
-    private const double RAD2DEG = 180 / Math.PI;
-
     public float ThetaMax => (float)(thetaMaxRad * RAD2DEG);
 
-    // Current state of the top (i.e. Euler angles)
-    public TopData data;
+    public static event Action OnTopHasFallen;
 
     private void Awake()
     {
-        Initialize();
-        UpdateData();
+        // Reset the simulation and pause
+        Reset();
 
-        IsPaused = !autoPlay;
+        // Potentially start playing
+        if (autoPlay) Resume();
     }
 
-    public void Initialize()
+    public void ComputeMomentOfInertia()
     {
-        // Compute the moment of inertia components
+        // Compute the moment of inertia components (assume the rod is massless)
         float radiusSquared = diskRadius * diskRadius;
-        I1 = 0.25 * radiusSquared + (diskOffset * rodLength) * (diskOffset * rodLength);
-        I3 = 0.5 * radiusSquared;
-        // Debug.Log("I1 : " + I1 + ", I3 : " + I3);
+        I1 = 0.25 * diskMass * radiusSquared + diskOffset * diskOffset;
+        I3 = 0.5 * diskMass * radiusSquared;
+    }
 
-        // Initialize equations of motion arrays
-        x = new double[6] { theta0 * DEG2RAD, phi0 * DEG2RAD, psi0 * DEG2RAD, thetaDot0 * DEG2RAD, phiDot0 * DEG2RAD, psiDot0 * DEG2RAD };
-        xdot = new double[6] { thetaDot0 * DEG2RAD, phiDot0 * DEG2RAD, psiDot0 * DEG2RAD, 0, 0, 0 };
-        double[] a = ComputeAccelerations();
-        xdot[3] = a[0];
-        xdot[4] = a[1];
-        xdot[5] = a[2];
+    private void InitializeODE()
+    {
+        // Initialize the equations of motion using the initial conditions
+        x = new double[3] { theta0 * DEG2RAD, phi0 * DEG2RAD, psi0 * DEG2RAD };
+        v = new double[3] { thetaDot0 * DEG2RAD, phiDot0 * DEG2RAD, psiDot0 * DEG2RAD };
+        a = new double[3];
+        ComputeAccelerations();
+    }
 
-        // Determine the max polar angle given the top parameters
-        thetaMaxRad = 0.5 * Math.PI - Math.Atan2(diskRadius, diskOffset * rodLength);
+    private void ComputeMaxPolarAngle()
+    {
+        // Determine the maximum polar angle given the top parameters ensuring that 
+        // the top does not pass through the floor
+        thetaMaxRad = 0.5 * Math.PI - Math.Atan2(diskRadius, diskOffset);
+    }
 
-        // Update the top's appearance
+    private void UpdatePhysicalAppearance()
+    {
+        // Update the top's appearance to correspond with its settings
         if (rod)
         {
             Vector3 rodScale = rod.localScale;
             rodScale.y = 0.5f * rodLength;
             rod.localScale = rodScale;
         }
+
         if (disk)
         {
+            // Distance along the rod
+            disk.localPosition = diskOffset * data.Direction;
+            // Disk size
             Vector3 diskScale = disk.localScale;
             diskScale.x = 2 * diskRadius;
             diskScale.z = 2 * diskRadius;
             disk.localScale = diskScale;
         }
+    }
 
-        data = new TopData();
+    private void UpdateOrientation()
+    {
+        // Orient the top according to the values stored in data
+        if (rod)
+        {
+            rod.localPosition = 0.5f * rodLength * data.Direction;
+            rod.up = data.Direction;
+        }
+
+        if (disk)
+        {
+            disk.localPosition = diskOffset * data.Direction;
+            disk.up = data.Direction;
+            disk.Rotate(Vector3.up, -data.psi, Space.Self);
+        }
     }
 
     // Solve the equations of motion
@@ -101,130 +138,100 @@ public class TopSimulation : Simulation
     {
         if (IsPaused) return;
 
+        // Evolve the equations of motion in time
         double deltaTime = Time.fixedDeltaTime / numSubsteps;
         for (int i = 0; i < numSubsteps; i++)
         {
-            TakeLeapfrogStep(deltaTime);
+            if (x[0] == 0)
+                RotateAroundY(deltaTime);
+            else if (solver == Solver.Leapfrog)
+                TakeLeapfrogStep(deltaTime);
+            else if (solver == Solver.Yoshida)
+                TakeYoshidaStep(deltaTime);
         }
 
-        EnforceConstraints();
-
-        UpdateRod();
-        UpdateDisk();
-        UpdateTrail();
         UpdateData();
+        UpdateSimState(true);
+        UpdateOrientation();
     }
 
-    private void UpdateRod()
-    {
-        if (!rod) return;
+    // private void UpdateTrail()
+    // {
+    //     if (trail && drawTrail) trail.localPosition = rodLength * data.Direction;
+    // }
 
-        // Get the current angular position of the rod
-        float theta = (float)(x[0] * RAD2DEG);
-        float phi = (float)(x[1] * RAD2DEG);
-
-        // Restrict the azimuthal angle between [-180, 180)
-        phi = (phi + 180f) % 360 - 180;
-
-        // Point the rod in the correct direction
-        currentDirection = Quaternion.Euler(0, -phi, -theta) * Vector3.up;
-        rod.localPosition = 0.5f * currentDirection * rodLength;
-        rod.up = currentDirection;
-    }
-
-    private void UpdateDisk()
-    {
-        if (!disk) return;
-
-        // Get the current spin of the disk
-        float psi = (float)(x[2] * RAD2DEG);
-
-        // Restrict the spin angle between [0, 360)
-        psi %= 360f;
-
-        // Position the disk and orient it correctly
-        disk.localPosition = diskOffset * rodLength * currentDirection;
-        disk.up = currentDirection;
-        disk.Rotate(Vector3.up, -psi, Space.Self);
-    }
-
-    public void Redraw()
-    {
-        EnforceConstraints();
-        UpdateRod();
-        UpdateDisk();
-    }
-
-    private void UpdateTrail()
-    {
-        if (trail && drawTrail) trail.localPosition = rodLength * currentDirection;
-    }
-
-    private void EnforceConstraints()
-    {
-        // Check for whether the top has fallen
-        if (Math.Abs(x[0]) >= thetaMaxRad)
-        {
-            // theta
-            x[0] = Math.Sign(x[0]) * thetaMaxRad;
-            x[3] = 0;
-            xdot[0] = 0;
-            xdot[3] = 0;
-
-            // TODO fix what happens when the top falls while running
-
-            // phi
-            xdot[4] = 0;
-
-            // psi
-            x[5] = x[4];
-            xdot[2] = xdot[1];
-            xdot[5] = 0;
-        }
-    }
-
-    private double[] ComputeAccelerations()
+    private void ComputeAccelerations()
     {
         double sin = Math.Sin(x[0]);
         double cos = Math.Cos(x[0]);
         double r = I3 / I1;
-        double torque = 1 * gravity * (diskOffset * rodLength) * sin; // Assuming mass = 1
+        double torque = diskMass * gravity * diskOffset * sin;
 
         // Euler equations of motion
-        double aTheta = (1 - r) * xdot[1] * xdot[1] * sin * cos - r * xdot[1] * xdot[2] * sin + torque / I1;
-        double aPhi = r * xdot[0] * (xdot[2] + xdot[1] * cos) / sin - 2 * xdot[0] * xdot[1] * cos / sin;
-        double aPsi = xdot[0] * xdot[1] * sin - aPhi * cos;
+        a[0] = (1 - r) * v[1] * v[1] * sin * cos - r * v[1] * v[2] * sin + torque / I1;
+        a[1] = r * v[0] * (v[2] + v[1] * cos) / sin - 2 * v[0] * v[1] * cos / sin;
+        a[2] = v[0] * v[1] * sin - a[1] * cos;
+    }
 
-        return new double[3] { aTheta, aPhi, aPsi };
+    private void RotateAroundY(double deltaTime)
+    {
+        // Handle the special case of the top pointing straight up or down
+        x[2] += deltaTime * v[2];
+        x[2] = WrapAngle(x[2]);
     }
 
     private void TakeLeapfrogStep(double deltaTime)
     {
-        // Update positions with current velocities and accelerations
-        x[0] += deltaTime * (xdot[0] + 0.5 * xdot[3] * deltaTime);
-        x[1] += deltaTime * (xdot[1] + 0.5 * xdot[4] * deltaTime);
-        x[2] += deltaTime * (xdot[2] + 0.5 * xdot[5] * deltaTime);
+        // Half kick
+        for (int i = 0; i < 3; i++)
+        {
+            v[i] += 0.5 * deltaTime * a[i];
+        }
 
-        x[0] = LoopAngle(x[0]);
-        x[1] = LoopAngle(x[1]);
-        x[2] = LoopAngle(x[2]);
+        // Drift
+        for (int i = 0; i < 3; i++)
+        {
+            x[i] += deltaTime * v[i];
+            x[i] = WrapAngle(x[i]);
+        }
 
-        // Compute new accelerations and update velocities
-        double[] aNew = ComputeAccelerations();
-        x[3] += 0.5 * (xdot[3] + aNew[0]) * deltaTime;
-        x[4] += 0.5 * (xdot[4] + aNew[1]) * deltaTime;
-        x[5] += 0.5 * (xdot[5] + aNew[2]) * deltaTime;
+        ComputeAccelerations();
 
-        // Update accelerations
-        xdot[0] = x[3];
-        xdot[1] = x[4];
-        xdot[2] = x[5];
-        xdot[3] = aNew[0];
-        xdot[4] = aNew[1];
-        xdot[5] = aNew[2];
+        // Half kick
+        for (int i = 0; i < 3; i++)
+        {
+            v[i] += 0.5 * deltaTime * a[i];
+        }
     }
 
-    private double LoopAngle(double value)
+    private void TakeYoshidaStep(double deltaTime)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            // Drift
+            for (int j = 0; j < 3; j++)
+            {
+                x[j] += c[i] * deltaTime * v[j];
+            }
+
+            // Compute Accelerations
+            ComputeAccelerations();
+
+            // Kick
+            for (int j = 0; j < 3; j++)
+            {
+                v[j] += d[i] * deltaTime * a[j];
+            }
+        }
+
+        // Final drift
+        for (int j = 0; j < 3; j++)
+        {
+            x[j] = WrapAngle(x[j] + c[3] * deltaTime * v[j]);
+        }
+    }
+
+    private double WrapAngle(double value)
     {
         double result = value;
         if (value > TWOPI) result -= TWOPI;
@@ -232,96 +239,249 @@ public class TopSimulation : Simulation
         return result;
     }
 
-    private Vector3 SphericalToCartesian(float a1, float a2, float a3)
+    private float ComputeEnergy(Vector3 e1, Vector3 e2, float sin, float cos)
     {
-        // (a1, a2, a3) correspond to the (r, theta, phi) components of a vector in spherical basis
-
-        float theta = (float)x[0];
-        float phi = (float)x[1];
-        // float psi = (float)x[2];
-        float sinTheta = Mathf.Sin(theta);
-        float cosTheta = Mathf.Cos(theta);
-        float sinPhi = Mathf.Sin(phi);
-        float cosPhi = Mathf.Cos(phi);
-
-        float ax = a1 * sinTheta * cosPhi + a2 * cosTheta * cosPhi - a3 * sinPhi;
-        float ay = a1 * sinTheta * sinPhi + a2 * cosTheta * sinPhi + a3 * cosPhi;
-        float az = a1 * cosTheta - a2 * sinTheta;
-
-        // Account for Unity's left-handedness and axis orientation
-        return new Vector3(ax, az, ay);
-    }
-
-    public Vector3 AngularVelocity()
-    {
-        float theta = (float)x[0];
-        float thetaDot = (float)x[3];
-        float phiDot = (float)x[4];
-        float psiDot = (float)x[5];
-
-        return SphericalToCartesian(psiDot + phiDot * Mathf.Cos(theta), -phiDot * Mathf.Sin(theta), thetaDot);
-    }
-
-    public Vector3 AngularMomentum()
-    {
-        float theta = (float)x[0];
-        float thetaDot = (float)x[3];
-        float phiDot = (float)x[4];
-        float psiDot = (float)x[5];
-
-        return SphericalToCartesian((float)I3 * (psiDot + phiDot * Mathf.Cos(theta)), -(float)I1 * phiDot * Mathf.Sin(theta), (float)I1 * thetaDot);
+        float rotationK = 0.5f * Vector3.Dot(Mathf.Deg2Rad * data.angularVelocity, Mathf.Deg2Rad * data.angularMomentum);
+        Vector3 vTranslation = diskOffset * Mathf.Deg2Rad * (data.phiDot * sin * e1 - data.thetaDot * e2);
+        float translationK = 0.5f * diskMass * vTranslation.sqrMagnitude;
+        float potential = diskMass * gravity * (rodLength + diskOffset * cos);
+        return rotationK + translationK + potential;
     }
 
     private void UpdateData()
     {
+        data.gravity = gravity;
+
+        data.diskRadius = diskRadius;
+        data.diskOffset = diskOffset;
+        data.diskMass = diskMass;
+        data.I1 = (float)I1;
+        data.I3 = (float)I3;
+
         data.theta = (float)(x[0] * RAD2DEG);
         data.phi = (float)(x[1] * RAD2DEG);
         data.psi = (float)(x[2] * RAD2DEG);
+        data.thetaMax = ThetaMax;
+
+        data.thetaDot = (float)(v[0] * RAD2DEG);
+        data.phiDot = (float)(v[1] * RAD2DEG);
+        data.psiDot = (float)(v[2] * RAD2DEG);
+
+        // Get local basis vectors
+        Vector3 e1 = data.UHat;
+        Vector3 e2 = data.E2Hat;
+        Vector3 e3 = data.Y3Hat;
+
+        // Compute angular velocity
+        data.angularVelocity = data.thetaDot * e1 + data.phiDot * Vector3.up + data.psiDot * e3;
+        // data.angularVelocity = data.thetaDot * e1 + data.phiDot * sin * e2 + (data.psiDot + data.phiDot * cos) * e3;
+
+        // Compute angular momentum
+        float sin = (float)Math.Sin(x[0]);
+        float cos = (float)Math.Cos(x[0]);
+        data.angularMomentum = data.I1 * data.thetaDot * e1 + data.I1 * data.phiDot * sin * e2 + data.I3 * (data.psiDot + data.phiDot * cos) * e3;
+
+        // Compute torque
+        data.torque = diskMass * gravity * diskOffset * sin * e1;
+
+        // Compute Energy
+        float energy = ComputeEnergy(e1, e2, sin, cos);
+        if (data.initialEnergy == 0) data.initialEnergy = energy;
+        data.totalEnergy = energy;
+        data.energyRatio = data.totalEnergy / data.initialEnergy;
     }
 
-    public void SetTheta0(float theta0)
+    private void UpdateSimState(bool broadcast)
     {
-        // Only set if the simulation is not running
-        if (!IsPaused) return;
-
-        this.theta0 = theta0;
-        Initialize();
-        Redraw();
+        if (simState)
+        {
+            simState.data = data;
+            if (broadcast) simState.BroadcastDataUpdated();
+        }
     }
 
-    public void SetPhi0(float phi0)
+    public void SetGravity(float value)
     {
-        // Only set if the simulation is not running
-        if (!IsPaused) return;
-
-        this.phi0 = phi0;
-        Initialize();
-        Redraw();
+        gravity = value;
     }
 
-    public void SetPsi0(float psi0)
+    public void SetTheta0(float value)
     {
-        // Only set if the simulation is not running
-        if (!IsPaused) return;
-
-        this.psi0 = psi0;
-        Initialize();
-        Redraw();
+        // Debug.Log("TopSimulation > SetTheta");
+        // theta0 = Mathf.Min(value, ThetaMax);
+        theta0 = value;
+        phi0 = (float)(x[1] * RAD2DEG);
+        psi0 = (float)(x[2] * RAD2DEG);
+        thetaDot0 = (float)(v[0] * RAD2DEG);
+        phiDot0 = (float)(v[1] * RAD2DEG);
+        psiDot0 = (float)(v[2] * RAD2DEG);
+        Reset();
     }
 
-    public void SetInitialEulerAngles(float theta, float phi, float psi)
+    public void SetPhi0(float value)
     {
-        theta0 = theta;
-        phi0 = phi;
-        psi0 = psi;
-        Initialize();
-        Redraw();
+        // Debug.Log("TopSimulation > SetPhi");
+        theta0 = (float)(x[0] * RAD2DEG);
+        phi0 = value;
+        psi0 = (float)(x[2] * RAD2DEG);
+        thetaDot0 = (float)(v[0] * RAD2DEG);
+        phiDot0 = (float)(v[1] * RAD2DEG);
+        psiDot0 = (float)(v[2] * RAD2DEG);
+        Reset();
+    }
+
+    public void SetPsi0(float value)
+    {
+        // Debug.Log("TopSimulation > SetPsi");
+        theta0 = (float)(x[0] * RAD2DEG);
+        phi0 = (float)(x[1] * RAD2DEG);
+        psi0 = value;
+        thetaDot0 = (float)(v[0] * RAD2DEG);
+        phiDot0 = (float)(v[1] * RAD2DEG);
+        psiDot0 = (float)(v[2] * RAD2DEG);
+        Reset();
+    }
+
+    public void SetThetaDot0(float value)
+    {
+        // Debug.Log("TopSimulation > SetThetaDot");
+        theta0 = (float)(x[0] * RAD2DEG);
+        phi0 = (float)(x[1] * RAD2DEG);
+        psi0 = (float)(x[2] * RAD2DEG);
+        thetaDot0 = value;
+        phiDot0 = (float)(v[1] * RAD2DEG);
+        psiDot0 = (float)(v[2] * RAD2DEG);
+        Reset();
+    }
+
+    public void SetPhiDot0(float value)
+    {
+        // Debug.Log("TopSimulation > SetPhiDot");
+        theta0 = (float)(x[0] * RAD2DEG);
+        phi0 = (float)(x[1] * RAD2DEG);
+        psi0 = (float)(x[2] * RAD2DEG);
+        thetaDot0 = (float)(v[0] * RAD2DEG);
+        phiDot0 = value;
+        psiDot0 = (float)(v[2] * RAD2DEG);
+        Reset();
+    }
+
+    public void SetPsiDot0(float value)
+    {
+        // Debug.Log("TopSimulation > SetPsiDot");
+        theta0 = (float)(x[0] * RAD2DEG);
+        phi0 = (float)(x[1] * RAD2DEG);
+        psi0 = (float)(x[2] * RAD2DEG);
+        thetaDot0 = (float)(v[0] * RAD2DEG);
+        phiDot0 = (float)(v[1] * RAD2DEG);
+        psiDot0 = value;
+        Reset();
+    }
+
+    public void SetDiskRadius(float value)
+    {
+        // Debug.Log("TopSimulation > SetDiskRadius");
+        diskRadius = value;
+        PropagateTopSettingChange();
+    }
+
+    public void SetDiskOffset(float value)
+    {
+        // Debug.Log("TopSimulation > SetDiskOffset");
+        diskOffset = value;
+        PropagateTopSettingChange();
+    }
+
+    public void SetDiskMass(float value)
+    {
+        // Debug.Log("TopSimulation > SetDiskMass");
+        diskMass = value;
+        PropagateTopSettingChange();
+    }
+
+    private void PropagateTopSettingChange()
+    {
+        // Propagate a change in settings through the relevant structures
+        ComputeMomentOfInertia();
+        ComputeAccelerations();
+        ComputeMaxPolarAngle();
+        UpdatePhysicalAppearance();
+        UpdateData();
+        UpdateSimState(true);
+    }
+
+    public override void TogglePlayPause()
+    {
+        base.TogglePlayPause();
+
+        if (simState)
+        {
+            simState.data.simIsRunning = !IsPaused;
+            // simState.BroadcastTogglePlayPause();
+        }
+    }
+
+    public void Reset()
+    {
+        // Compute the top's moment of inertia components
+        ComputeMomentOfInertia();
+        // Initialize the ODE arrays
+        InitializeODE();
+        // Determine the max polar angle
+        ComputeMaxPolarAngle();
+        // Create a new data container and populate it with current values
+        data = new TopData();
+        UpdateData();
+        // Synchronize the simulation state data and broadcast the update
+        UpdateSimState(true);
+        // Update the disk and rod game objects to match their settings values
+        UpdatePhysicalAppearance();
+        // Point the top in the right direction
+        UpdateOrientation();
+
+        Pause();
     }
 }
 
+[Serializable]
 public class TopData
 {
-    public float theta;
-    public float phi;
-    public float psi;
+    public bool simIsRunning;
+    [Tooltip("In m / s^2")] public float gravity;
+
+    [Header("Physical properties")]
+    [Tooltip("In meters")] public float diskRadius;
+    [Tooltip("In meters")] public float diskOffset;
+    [Tooltip("In meters")] public float diskMass;
+    [Tooltip("In kg * m^2")] public float I1;
+    [Tooltip("In kg * m^2")] public float I3;
+
+    [Header("Euler angles")]
+    [Tooltip("In degrees")] public float theta;
+    [Tooltip("In degrees")] public float phi;
+    [Tooltip("In degrees")] public float psi;
+    [Tooltip("In degrees")] public float thetaMax;
+
+    [Header("Angular velocity")]
+    [Tooltip("In deg / s")] public float thetaDot;
+    [Tooltip("In deg / s")] public float phiDot;
+    [Tooltip("In deg / s")] public float psiDot;
+    [Tooltip("In deg / s")] public Vector3 angularVelocity;
+
+    [Header("Dynamics")]
+    [Tooltip("In kg * m^2 / s")] public Vector3 angularMomentum;
+    [Tooltip("In kg * m^2 / s^2")] public Vector3 torque;
+
+    [Header("Energy")]
+    public float initialEnergy;
+    public float totalEnergy;
+    public float energyRatio;
+
+    // The direction the rod is pointing
+    public Vector3 Direction => Quaternion.Euler(0, -phi, theta) * Vector3.up;
+
+    // Rotated basis vectors
+    public Vector3 UHat => Quaternion.AngleAxis(-phi, Vector3.up) * Vector3.back;
+    public Vector3 Y3Hat => Quaternion.AngleAxis(-theta, UHat) * Vector3.up;
+    public Vector3 E2Hat => Vector3.Cross(UHat, Y3Hat).normalized;
 }

@@ -611,6 +611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0c7eece3e9b4598bf33dc184589b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simState: {fileID: 0}
   autoPlay: 1
   rod: {fileID: 3539928492842873248}
   disk: {fileID: 3539928491432067394}
@@ -618,15 +619,16 @@ MonoBehaviour:
   gravity: 9.81
   rodLength: 3
   diskRadius: 1
-  diskOffset: 0.5
+  diskMass: 1
+  diskOffset: 2.4
   drawTrail: 0
   theta0: 10
   phi0: 0
   psi0: 0
-  numSubsteps: 20
   thetaDot0: 0
   phiDot0: 0
   psiDot0: 3000
+  numSubsteps: 20
 --- !u!1 &3539928492842873251
 GameObject:
   m_ObjectHideFlags: 0

@@ -1178,7 +1178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3539928492841937415, guid: b48cb2e1bb66f4383a0c2025d2690ffc, type: 3}
       propertyPath: phi0
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3539928492841937415, guid: b48cb2e1bb66f4383a0c2025d2690ffc, type: 3}
       propertyPath: theta0
@@ -1191,10 +1191,6 @@ PrefabInstance:
     - target: {fileID: 3539928492841937415, guid: b48cb2e1bb66f4383a0c2025d2690ffc, type: 3}
       propertyPath: psiDot0
       value: 3000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3539928492841937415, guid: b48cb2e1bb66f4383a0c2025d2690ffc, type: 3}
-      propertyPath: diskOffset
-      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3539928492841937415, guid: b48cb2e1bb66f4383a0c2025d2690ffc, type: 3}
       propertyPath: numSubsteps

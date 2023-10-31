@@ -24,7 +24,7 @@ public class Activity1Manager : MonoBehaviour
     [SerializeField] private SoundEffect successBell;
     [SerializeField] private GameObject confetti;
 
-    private const float tol = 1f; // in degrees
+    private const float tol = 2f; // in degrees
     private bool isFirstLoad = true;
 
     private void OnEnable()
