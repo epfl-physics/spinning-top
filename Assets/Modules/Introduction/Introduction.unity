@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2d2c70414ef4ca1a88e5174d00f676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulation: {fileID: 1252681925}
+  simulation: {fileID: 1553885269}
   eulerAngles: {fileID: 1369773427}
   thetaSlider: {fileID: 1176418064}
   phiSlider: {fileID: 630364217}
@@ -903,7 +903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2d2c70414ef4ca1a88e5174d00f676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulation: {fileID: 1252681925}
+  simulation: {fileID: 1553885269}
   eulerAngles: {fileID: 1369773427}
   thetaSlider: {fileID: 318044249}
   phiSlider: {fileID: 1423240676}
@@ -4264,17 +4264,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6935243960283729065, guid: f14fca255b0d04b8f924c4a52d7bdc3a, type: 3}
   m_PrefabInstance: {fileID: 6935243961196405869}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1252681925 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6935243960283729064, guid: f14fca255b0d04b8f924c4a52d7bdc3a, type: 3}
-  m_PrefabInstance: {fileID: 6935243961196405869}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c2168c0f7e3d4409b5a5d2e725ac2a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1315711789 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3545960845297666564, guid: 745706eb078724ec584391b8ed68b87d, type: 3}
@@ -5499,12 +5488,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2d2c70414ef4ca1a88e5174d00f676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulation: {fileID: 1252681925}
+  simulation: {fileID: 1553885269}
   eulerAngles: {fileID: 1369773427}
   thetaSlider: {fileID: 1191431879}
   phiSlider: {fileID: 677805301}
   psiSlider: {fileID: 1161499787}
   referenceToggle: {fileID: 0}
+--- !u!114 &1553885269 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7697388979865030545, guid: f14fca255b0d04b8f924c4a52d7bdc3a, type: 3}
+  m_PrefabInstance: {fileID: 6935243961196405869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c2168c0f7e3d4409b5a5d2e725ac2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1555354985
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7050,7 +7050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2d2c70414ef4ca1a88e5174d00f676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulation: {fileID: 1252681925}
+  simulation: {fileID: 1553885269}
   eulerAngles: {fileID: 1369773427}
   thetaSlider: {fileID: 1135116288}
   phiSlider: {fileID: 1120751321}
@@ -8103,5 +8103,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6935243960283729064, guid: f14fca255b0d04b8f924c4a52d7bdc3a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f14fca255b0d04b8f924c4a52d7bdc3a, type: 3}

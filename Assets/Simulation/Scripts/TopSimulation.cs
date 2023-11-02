@@ -129,7 +129,7 @@ public class TopSimulation : Simulation
         if (disk)
         {
             disk.localPosition = diskOffset * data.Direction;
-            disk.up = data.Direction;
+            disk.rotation = Quaternion.Euler(0, -data.phi, data.theta);
             disk.Rotate(Vector3.up, -data.psi, Space.Self);
         }
     }
