@@ -28,15 +28,15 @@ public class ClassicEulerAngles : MonoBehaviour
 
     public static event System.Action<float, float, float> OnValuesChanged;
 
-    private void OnEnable()
-    {
-        TopSimulationState.OnUpdateData += HandleTopUpdated;
-    }
+    // private void OnEnable()
+    // {
+    //     TopSimulationState.OnUpdateData += HandleTopUpdated;
+    // }
 
-    private void OnDisable()
-    {
-        TopSimulationState.OnUpdateData -= HandleTopUpdated;
-    }
+    // private void OnDisable()
+    // {
+    //     TopSimulationState.OnUpdateData -= HandleTopUpdated;
+    // }
 
     private void Start()
     {
@@ -63,8 +63,6 @@ public class ClassicEulerAngles : MonoBehaviour
 
     public void Redraw()
     {
-        Debug.Log("ClassicEulerAngles > Redraw");
-
         // Initial relative basis vectors
         Vector3 x1 = basisLength * Vector3.back;
         Vector3 x2 = basisLength * Vector3.right;
@@ -122,16 +120,16 @@ public class ClassicEulerAngles : MonoBehaviour
         Redraw();
     }
 
-    public void HandleTopUpdated()
-    {
-        if (simState)
-        {
-            theta = simState.data.theta;
-            phi = simState.data.phi;
-            phi = (phi + 180) % 360;
-            psi = simState.SimIsRunning ? 360 : simState.data.psi;
-            // Redraw();
-            Debug.Log("What was I doing here?");
-        }
-    }
+    // public void HandleTopUpdated()
+    // {
+    //     if (simState)
+    //     {
+    //         theta = simState.data.theta;
+    //         phi = simState.data.phi;
+    //         phi = (phi + 180) % 360;
+    //         psi = simState.SimIsRunning ? 360 : simState.data.psi;
+    //         // Redraw();
+    //         Debug.Log("What was I doing here?");
+    //     }
+    // }
 }

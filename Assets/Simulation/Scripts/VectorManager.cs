@@ -15,6 +15,9 @@ public class VectorManager : MonoBehaviour
     [SerializeField] private Vector torque;
     [SerializeField] private Vector weight;
 
+    [Header("Basis")]
+    [SerializeField] private Transform relativeBasis;
+
     [Header("Simulation Data")]
     [SerializeField] private TopSimulationState simState;
 
@@ -31,6 +34,12 @@ public class VectorManager : MonoBehaviour
         Vector3 weightPosition = simState.data.diskOffset * simState.data.Direction;
         Vector3 weightComponents = simState.data.diskMass * simState.data.gravity * Vector3.down;
         RedrawVector(weight, weightPosition, weightComponents, 1);
+
+        if (relativeBasis)
+        {
+            relativeBasis.position = simState.data.diskOffset * simState.data.Direction;
+            relativeBasis.rotation = Quaternion.Euler(0, -simState.data.phi, simState.data.theta);
+        }
     }
 
     private void RedrawVector(Vector vector, Vector3 components, float scaleFactor = 1)

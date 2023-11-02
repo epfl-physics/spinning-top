@@ -26,10 +26,23 @@ public class SandboxManager : MonoBehaviour
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject pauseButton;
 
+    [Header("Panels")]
+    [SerializeField] private GameObject oopsPanel;
+
     [Header("Object Outlines")]
     [SerializeField] private Transform rodOutline;
 
     private bool isUpdatingUI;
+
+    private void OnEnable()
+    {
+        TopSimulation.OnTopHasBecomeUnstable += HandleTopHasBecomeUnstable;
+    }
+
+    private void OnDisable()
+    {
+        TopSimulation.OnTopHasBecomeUnstable -= HandleTopHasBecomeUnstable;
+    }
 
     private void Start()
     {
@@ -182,6 +195,11 @@ public class SandboxManager : MonoBehaviour
         sim.SetPsiDot0(initialData.psiDot0);
 
         sim.Reset();
+    }
+
+    public void HandleTopHasBecomeUnstable()
+    {
+        if (oopsPanel) oopsPanel.SetActive(true);
     }
 }
 

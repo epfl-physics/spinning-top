@@ -60,6 +60,7 @@ public class TopSimulation : Simulation
     public float ThetaMax => (float)(thetaMaxRad * RAD2DEG);
 
     public static event Action OnTopHasFallen;
+    public static event Action OnTopHasBecomeUnstable;
 
     private void Awake()
     {
@@ -289,6 +290,9 @@ public class TopSimulation : Simulation
         if (data.initialEnergy == 0) data.initialEnergy = energy;
         data.totalEnergy = energy;
         data.energyRatio = data.totalEnergy / data.initialEnergy;
+
+        // Check for runaway numerical errors
+        CheckForInstability();
     }
 
     private void UpdateSimState(bool broadcast)
@@ -396,6 +400,7 @@ public class TopSimulation : Simulation
     {
         // Debug.Log("TopSimulation > SetDiskMass");
         diskMass = value;
+        data.initialEnergy = 0;  // Why do we need to do this for mass but not the others?
         PropagateTopSettingChange();
     }
 
@@ -440,6 +445,15 @@ public class TopSimulation : Simulation
         UpdateOrientation();
 
         Pause();
+    }
+
+    private void CheckForInstability()
+    {
+        if (data.energyRatio >= 2)
+        {
+            Pause();
+            OnTopHasBecomeUnstable?.Invoke();
+        }
     }
 }
 

@@ -964,6 +964,10 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 55
       objectReference: {fileID: 0}
+    - target: {fileID: 2928668263498223147, guid: f665041d142c849a3a11a3681b397ad9, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8927256906214765097, guid: f665041d142c849a3a11a3681b397ad9, type: 3}
       propertyPath: m_LocalScale.x
       value: 20

@@ -10,6 +10,7 @@ public class TopDataDisplay : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI angularMomentumValue;
     [SerializeField] private TextMeshProUGUI angularVelocityValue;
+    [SerializeField] private TextMeshProUGUI energyRatioValue;
 
     [SerializeField] private TextMeshProUGUI fpsValue;
 
@@ -28,6 +29,7 @@ public class TopDataDisplay : MonoBehaviour
 
         if (angularMomentumValue) angularMomentumValue.text = simState.data.angularMomentum.magnitude.ToString("0.00");
         if (angularVelocityValue) angularVelocityValue.text = simState.data.angularVelocity.magnitude.ToString("0.00");
+        if (energyRatioValue) energyRatioValue.text = simState.data.energyRatio.ToString("0.00");
 
         if (fpsValue) fpsValue.text = (Time.frameCount / Time.time).ToString("0.0");
     }
