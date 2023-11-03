@@ -57,6 +57,8 @@ public class SandboxManager : MonoBehaviour
         }
 
         if (sim) sim.Resume();
+
+        if (simState) simState.data.simIsRunning = true;
     }
 
     public void Pause()
@@ -73,6 +75,8 @@ public class SandboxManager : MonoBehaviour
             if (phiDotSlider) phiDotSlider.value = simState.data.phiDot;
             if (psiDotSlider) psiDotSlider.value = simState.data.psiDot;
             isUpdatingUI = false;
+
+            simState.data.simIsRunning = false;
         }
 
         foreach (SlidersContainer container in slidersContainers)
