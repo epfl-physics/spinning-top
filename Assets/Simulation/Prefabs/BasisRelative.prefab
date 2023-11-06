@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8395209827744982808}
   m_Layer: 0
-  m_Name: Relative Basis
+  m_Name: BasisRelative
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

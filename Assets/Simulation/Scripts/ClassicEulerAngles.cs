@@ -23,7 +23,20 @@ public class ClassicEulerAngles : MonoBehaviour
     [SerializeField] private Transform referenceObject;
     [SerializeField] private float initialRotationZ = 0;
 
+    [Header("Simulation Data")]
+    [SerializeField] private TopSimulationState simState;
+
     public static event System.Action<float, float, float> OnValuesChanged;
+
+    // private void OnEnable()
+    // {
+    //     TopSimulationState.OnUpdateData += HandleTopUpdated;
+    // }
+
+    // private void OnDisable()
+    // {
+    //     TopSimulationState.OnUpdateData -= HandleTopUpdated;
+    // }
 
     private void Start()
     {
@@ -106,4 +119,17 @@ public class ClassicEulerAngles : MonoBehaviour
         psi = 0;
         Redraw();
     }
+
+    // public void HandleTopUpdated()
+    // {
+    //     if (simState)
+    //     {
+    //         theta = simState.data.theta;
+    //         phi = simState.data.phi;
+    //         phi = (phi + 180) % 360;
+    //         psi = simState.SimIsRunning ? 360 : simState.data.psi;
+    //         // Redraw();
+    //         Debug.Log("What was I doing here?");
+    //     }
+    // }
 }

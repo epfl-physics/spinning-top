@@ -403,10 +403,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3539928492841937415, guid: b48cb2e1bb66f4383a0c2025d2690ffc, type: 3}
-      propertyPath: phi0
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 3539928492841937415, guid: b48cb2e1bb66f4383a0c2025d2690ffc, type: 3}
       propertyPath: theta0
       value: 10
       objectReference: {fileID: 0}
@@ -415,8 +411,8 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3539928492841937415, guid: b48cb2e1bb66f4383a0c2025d2690ffc, type: 3}
-      propertyPath: diskOffset
-      value: 0.8
+      propertyPath: numSubsteps
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3539928492841937465, guid: b48cb2e1bb66f4383a0c2025d2690ffc, type: 3}
       propertyPath: m_Name
@@ -445,6 +441,10 @@ PrefabInstance:
     - target: {fileID: 3539928492842873248, guid: b48cb2e1bb66f4383a0c2025d2690ffc, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.087155744
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090669855801055310, guid: b48cb2e1bb66f4383a0c2025d2690ffc, type: 3}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b48cb2e1bb66f4383a0c2025d2690ffc, type: 3}
