@@ -5,6 +5,7 @@ public class ClickableVector : MonoBehaviour
     [Header("References")]
     [SerializeField] private Vector vector;
     [SerializeField] private Transform clickZone;
+    [SerializeField] private GameObject label;
 
     [Header("Settings")]
     [SerializeField] private Vector3 components = Vector3.zero;
@@ -74,5 +75,10 @@ public class ClickableVector : MonoBehaviour
         {
             clickableObject.Interactable = interactable;
         }
+    }
+
+    public void SetLabelVisibility(bool visible)
+    {
+        if (label) label.SetActive(visible);
     }
 }
