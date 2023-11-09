@@ -444,6 +444,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5536735365743504974, guid: 152de9a77de37468a965652d2a7a93ea, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5536735365743504974, guid: 152de9a77de37468a965652d2a7a93ea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -6.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5536735365834633191, guid: 152de9a77de37468a965652d2a7a93ea, type: 3}
       propertyPath: m_Color.b
       value: 0.94509804
