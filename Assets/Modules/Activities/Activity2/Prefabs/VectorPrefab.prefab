@@ -73,7 +73,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 1.6901613, y: 0.8450807, z: 0}
+  - {x: 1.767621, y: 0.8838105, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.2
@@ -82,7 +82,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.75
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -91,7 +91,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 1
+        value: 0.75
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -165,7 +165,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6891090007403241260}
   m_LocalRotation: {x: -0.16245985, y: 0.68819094, z: 0.16245985, w: 0.688191}
-  m_LocalPosition: {x: 1.6901613, y: 0.8450807, z: 0}
+  m_LocalPosition: {x: 1.767621, y: 0.8838105, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7916903046096456175}
@@ -232,10 +232,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7690fd201bb074fbeb47bd71491cd777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 0.972549}
   numSides: 30
-  radius: 0.24000001
-  height: 0.34641019
+  radius: 0.18
+  height: 0.25980765
   basePlane: 0
 --- !u!1 &7916903046096456173
 GameObject:
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 7916903046096456175}
   - component: {fileID: 7916903046096456172}
   m_Layer: 0
-  m_Name: Weight
+  m_Name: VectorPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,8 +284,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 5360688096170334879}
   head: {fileID: 6891090007403241261}
-  defaultMaterial: {fileID: 2100000, guid: 8a12487f44d684882acc835d595eaad6, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: eb530278d6e614093963bd2574c7a45a, type: 2}
   components: {x: 2, y: 1, z: 0}
-  color: {r: 0.6745098, g: 0.6745098, b: 0.6745098, a: 1}
-  lineWidth: 0.2
+  color: {r: 0, g: 0, b: 0, a: 1}
+  lineWidth: 0.15
   sortOrder: 0
