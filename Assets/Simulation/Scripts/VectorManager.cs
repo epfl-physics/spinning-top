@@ -17,6 +17,7 @@ public class VectorManager : MonoBehaviour
 
     [Header("Basis")]
     [SerializeField] private Transform relativeBasis;
+    [SerializeField] private GameObject x3Hat;
 
     [Header("Simulation Data")]
     [SerializeField] private TopSimulationState simState;
@@ -39,6 +40,18 @@ public class VectorManager : MonoBehaviour
         {
             relativeBasis.position = simState.data.diskOffset * simState.data.Direction;
             relativeBasis.rotation = Quaternion.Euler(0, -simState.data.phi, simState.data.theta);
+        }
+
+        if (x3Hat && phiDot)
+        {
+            if (phiDot.gameObject.activeInHierarchy)
+            {
+                x3Hat.SetActive(phiDot.components.y <= 0);
+            }
+            else if (!x3Hat.activeInHierarchy)
+            {
+                x3Hat.SetActive(true);
+            }
         }
     }
 
