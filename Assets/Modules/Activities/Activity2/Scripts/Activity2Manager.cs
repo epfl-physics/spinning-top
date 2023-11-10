@@ -15,6 +15,9 @@ public class Activity2Manager : MonoBehaviour
     [Header("Vectors")]
     [SerializeField] private GameObject vectorPrefab;
 
+    [Header("Labels")]
+    [SerializeField] private GameObject principalAxesOrigin;
+
     [Header("UI")]
     [SerializeField] private Button verifyButton;
     [SerializeField] private CanvasGroup winPanel;
@@ -25,6 +28,7 @@ public class Activity2Manager : MonoBehaviour
     [SerializeField] private GameObject confetti;
 
     private const float torqueMagnitude = 1.2f;
+    private float signPsiDot = -1;
 
     private Transform vectorContainer;
     private List<ClickableVector> vectors;
@@ -60,6 +64,7 @@ public class Activity2Manager : MonoBehaviour
     {
         Randomize();
 
+        // Visual cue for the user to click on a vector
         pulsateVectors = StartCoroutine(PulsateVectors());
     }
 
@@ -67,12 +72,14 @@ public class Activity2Manager : MonoBehaviour
     {
         if (!sim || !simState) return;
 
-        // Update the torque vector
+        // Update the torque vector and principal axes origin
         if (!sim.IsPaused)
         {
             Vector3 torque = torqueMagnitude * simState.data.torque.normalized;
             // There should only be one vector remaining in the list if the sim is running
             vectors[0].SetComponents(torque);
+
+            PlacePrincipalAxisOrigin();
         }
     }
 
@@ -92,15 +99,15 @@ public class Activity2Manager : MonoBehaviour
             theta = 70;
             isFirstLoad = false;
         }
-        float psiDot = new float[] { -3000, 3000 }[Random.Range(0, 2)];
-        float mass = Random.Range(0.4f, 0.6f);
+        float psiDot = signPsiDot * 3000;
+        // Switch sign for next time
+        signPsiDot *= -1;
 
         // TODO this is not efficient, since each time a param is set the top redraws
         sim.SetPhi0(phi);
         sim.SetTheta0(theta);
         sim.SetPhiDot0(Mathf.Sign(psiDot) * 25);
         sim.SetPsiDot0(psiDot);
-        sim.SetDiskMass(mass);
 
         ClearVectors();
         DrawOptionVectors();
@@ -109,6 +116,7 @@ public class Activity2Manager : MonoBehaviour
         HideTryAgainPanel();
         SetButtonInteractable(verifyButton, false);
         ShowInstructionStep(1);
+        PlacePrincipalAxisOrigin();
     }
 
     private void ClearVectors()
@@ -328,5 +336,13 @@ public class Activity2Manager : MonoBehaviour
     public void ResetCamera()
     {
         if (instructions) instructions.ResetCamera();
+    }
+
+    public void PlacePrincipalAxisOrigin()
+    {
+        if (principalAxesOrigin && simState)
+        {
+            principalAxesOrigin.transform.position = (simState.data.diskOffset - 0.4f) * simState.data.Direction + 0.4f * simState.data.E2Hat;
+        }
     }
 }
