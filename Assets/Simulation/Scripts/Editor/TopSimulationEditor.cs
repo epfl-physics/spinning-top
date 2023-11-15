@@ -15,10 +15,9 @@ public class TopSimulationEditor : Editor
     {
         DrawDefaultInspector();
 
-        // if (GUI.changed)
-        // {
-        //     component.Initialize();
-        //     component.Redraw();
-        // }
+        if (GUI.changed)
+        {
+            component.Reset();
+        }
     }
 }

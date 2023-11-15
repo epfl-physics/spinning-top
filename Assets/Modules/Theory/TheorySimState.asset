@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c2c141e979044eeac0f5e446c6677d, type: 3}
+  m_Name: TheorySimState
+  m_EditorClassIdentifier: 
+  data:
+    simIsRunning: 0
+    gravity: 0
+    diskRadius: 0
+    diskOffset: 0
+    diskMass: 0
+    I1: 0
+    I3: 0
+    theta: 0
+    phi: 0
+    psi: 0
+    thetaMax: 0
+    thetaDot: 0
+    phiDot: 0
+    psiDot: 0
+    angularVelocity: {x: 0, y: 0, z: 0}
+    angularMomentum: {x: 0, y: 0, z: 0}
+    torque: {x: 0, y: 0, z: 0}
+    initialEnergy: 0
+    totalEnergy: 0
+    energyRatio: 0

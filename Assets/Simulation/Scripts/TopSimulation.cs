@@ -17,11 +17,12 @@ public class TopSimulation : Simulation
     [SerializeField, Tooltip("In meters.")] private float diskRadius = 1;
     [SerializeField, Tooltip("In kilograms.")] private float diskMass = 1;
     [SerializeField, Tooltip("Disk distance along the rod in meters.")] private float diskOffset = 2.4f;
+    [SerializeField, Tooltip("Whether the model is a wheel.")] private bool modelIsWheel = false;
     [SerializeField, Tooltip("Whether to draw the trail")] private bool drawTrail;
 
     [Header("Initial Conditions")]
     [SerializeField, Range(0, 180), Tooltip("Nutation angle [deg].")] private float theta0 = 0;
-    [SerializeField, Range(-180, 180), Tooltip("Precession angle [deg].")] private float phi0 = 0;
+    [SerializeField, Range(0, 360), Tooltip("Precession angle [deg].")] private float phi0 = 0;
     [SerializeField, Range(0, 360), Tooltip("Intrinsic rotation [deg].")] private float psi0 = 0;
     [SerializeField, Range(-10, 10), Tooltip("d(theta)/dt [deg / s]")] private float thetaDot0 = 0; // [deg / s]
     [SerializeField, Range(-50, 50), Tooltip("d(phi)/dt [deg / s]")] private float phiDot0 = 0; // [deg / s]
@@ -102,6 +103,7 @@ public class TopSimulation : Simulation
         {
             Vector3 rodScale = rod.localScale;
             rodScale.y = 0.5f * rodLength;
+            rodScale.x = rodScale.z = modelIsWheel ? 0.05f : 0.15f;
             rod.localScale = rodScale;
         }
 
@@ -111,8 +113,14 @@ public class TopSimulation : Simulation
             disk.localPosition = diskOffset * data.Direction;
             // Disk size
             Vector3 diskScale = disk.localScale;
-            diskScale.x = 2 * diskRadius;
-            diskScale.z = 2 * diskRadius;
+            if (modelIsWheel)
+            {
+                diskScale.x = diskScale.y = 2 * diskRadius;
+            }
+            else
+            {
+                diskScale.x = diskScale.z = 2 * diskRadius;
+            }
             disk.localScale = diskScale;
         }
     }
@@ -131,6 +139,8 @@ public class TopSimulation : Simulation
             disk.localPosition = diskOffset * data.Direction;
             disk.rotation = Quaternion.Euler(0, -data.phi, data.theta);
             disk.Rotate(Vector3.up, -data.psi, Space.Self);
+
+            if (modelIsWheel) disk.Rotate(Vector3.back, 90, Space.Self);
         }
     }
 
