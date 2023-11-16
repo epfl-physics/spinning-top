@@ -7530,7 +7530,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2457605393564080282, guid: 3f4629edd9c874f65b280196d6f5f459, type: 3}
       propertyPath: textData.Array.data[1].text
-      value: Graphes
+      value: Graphiques
       objectReference: {fileID: 0}
     - target: {fileID: 2457605394122368038, guid: 3f4629edd9c874f65b280196d6f5f459, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7718,7 +7718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4852394578539361039, guid: 3f4629edd9c874f65b280196d6f5f459, type: 3}
       propertyPath: m_Name
-      value: Tabs Drawer
+      value: Tabs Drawer Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5726399185342156959, guid: 3f4629edd9c874f65b280196d6f5f459, type: 3}
       propertyPath: m_IsActive

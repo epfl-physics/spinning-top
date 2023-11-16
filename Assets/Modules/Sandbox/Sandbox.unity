@@ -11560,6 +11560,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9884645, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
+      propertyPath: textData.Array.data[1].text
+      value: Grandeurs dynamiques
+      objectReference: {fileID: 0}
     - target: {fileID: 65493358, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -11615,6 +11619,10 @@ PrefabInstance:
     - target: {fileID: 892290053, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 892290057, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
+      propertyPath: m_Spacing
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1043374752, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
       propertyPath: m_AnchorMax.y
@@ -11687,6 +11695,10 @@ PrefabInstance:
     - target: {fileID: 1855899873, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855899874, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
+      propertyPath: textData.Array.data[1].text
+      value: "Grandeurs cin\xE9matiques"
       objectReference: {fileID: 0}
     - target: {fileID: 1933647875, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
       propertyPath: m_AnchorMax.y
@@ -12163,6 +12175,10 @@ PrefabInstance:
     - target: {fileID: 2435698362197258697, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435698362197258710, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
+      propertyPath: m_text
+      value: Solid
       objectReference: {fileID: 0}
     - target: {fileID: 2435698362244338527, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
       propertyPath: m_AnchorMax.y
@@ -12820,6 +12836,18 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4855777155799892542, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855777155799892542, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855777155799892542, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5911663237768643032, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -12983,6 +13011,26 @@ PrefabInstance:
     - target: {fileID: 8408884160402212160, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425127109219624507, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
+      propertyPath: textData.Array.data[0].text
+      value: Solid
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425127109219624507, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
+      propertyPath: textData.Array.data[1].text
+      value: Solide
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691156765198366491, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691156765198366491, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691156765198366491, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8691156765349288584, guid: 2ca7a7bb889ed4b6899bd64d48367076, type: 3}
       propertyPath: m_Name
