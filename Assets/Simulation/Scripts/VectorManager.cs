@@ -14,6 +14,8 @@ public class VectorManager : MonoBehaviour
     [SerializeField] private Transform relativeBasis;
     [SerializeField] private GameObject x3Hat;
 
+    private bool useAltScale;
+
     private Vector3 GetVectorComponents(VectorDisplay vectorDisplay)
     {
         Vector3 components = Vector3.zero;
@@ -60,14 +62,15 @@ public class VectorManager : MonoBehaviour
         foreach (VectorDisplay vectorDisplay in vectorDisplays)
         {
             Vector3 components = GetVectorComponents(vectorDisplay);
+            float scaleFactor = useAltScale ? vectorDisplay.altScaleFactor : vectorDisplay.scaleFactor;
             if (vectorDisplay.type == VectorDisplay.Type.Weight)
             {
                 Vector3 position = simState.data.diskOffset * simState.data.Direction;
-                RedrawVector(vectorDisplay.vector, position, components, vectorDisplay.scaleFactor);
+                RedrawVector(vectorDisplay.vector, position, components, scaleFactor);
             }
             else
             {
-                RedrawVector(vectorDisplay.vector, components, vectorDisplay.scaleFactor);
+                RedrawVector(vectorDisplay.vector, components, scaleFactor);
                 if (vectorDisplay.type == VectorDisplay.Type.PhiDot) phiDot = vectorDisplay;
             }
         }
@@ -105,6 +108,12 @@ public class VectorManager : MonoBehaviour
         if (vector) vector.transform.position = position;
         RedrawVector(vector, components, scaleFactor);
     }
+
+    public void SetVectorScale(bool toScale)
+    {
+        useAltScale = !toScale;
+        Debug.Log("VectorManager > SetVectorScale : useAltScale = " + useAltScale);
+    }
 }
 
 [System.Serializable]
@@ -114,4 +123,5 @@ public class VectorDisplay
     public Type type;
     public Vector vector;
     public float scaleFactor = 1;
+    public float altScaleFactor = 1;
 }

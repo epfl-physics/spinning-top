@@ -19,6 +19,7 @@ public class TopSimulation : Simulation
     [SerializeField, Tooltip("Disk distance along the rod in meters.")] private float diskOffset = 2.4f;
     [SerializeField, Tooltip("Whether the model is a wheel.")] private bool modelIsWheel = false;
     [SerializeField, Tooltip("Whether to draw the trail")] private bool drawTrail;
+    [SerializeField] private float frictionCoeff = 0;
 
     [Header("Initial Conditions")]
     [SerializeField, Range(0, 180), Tooltip("Nutation angle [deg].")] private float theta0 = 0;
@@ -30,7 +31,7 @@ public class TopSimulation : Simulation
 
     [Header("Solver")]
     [SerializeField, Min(1)] private int numSubsteps = 10;
-    private enum Solver { Leapfrog, Yoshida }
+    private enum Solver { Leapfrog, Yoshida }  // Yoshida does not work properly yet
     [SerializeField] private Solver solver = Solver.Leapfrog;
 
     // Current state of the top (i.e. Euler angles, derivatives, moment of inertia)
@@ -51,10 +52,10 @@ public class TopSimulation : Simulation
     private static readonly double RAD2DEG = 180 / Math.PI;
 
     // Yoshida constants
-    private static readonly double w1 = 1.0 / (2.0 - Math.Pow(2.0, 1.0 / 3.0));
-    private static readonly double w0 = -Math.Pow(2.0, 1.0 / 3.0) * w1;
-    private static readonly double[] c = { 0.5 * w1, 0.5 * (w0 + w1), 0.5 * (w0 + w1), 0.5 * w1 };
-    private static readonly double[] d = { w1, w0, w1 };
+    // private static readonly double w1 = 1.0 / (2.0 - Math.Pow(2.0, 1.0 / 3.0));
+    // private static readonly double w0 = -Math.Pow(2.0, 1.0 / 3.0) * w1;
+    // private static readonly double[] c = { 0.5 * w1, 0.5 * (w0 + w1), 0.5 * (w0 + w1), 0.5 * w1 };
+    // private static readonly double[] d = { w1, w0, w1 };
 
     // Ground constraint
     private double thetaMaxRad;
@@ -157,8 +158,8 @@ public class TopSimulation : Simulation
                 RotateAroundY(deltaTime);
             else if (solver == Solver.Leapfrog)
                 TakeLeapfrogStep(deltaTime);
-            else if (solver == Solver.Yoshida)
-                TakeYoshidaStep(deltaTime);
+            // else if (solver == Solver.Yoshida)
+            //     TakeYoshidaStep(deltaTime);
         }
 
         UpdateData();
@@ -176,12 +177,13 @@ public class TopSimulation : Simulation
         double sin = Math.Sin(x[0]);
         double cos = Math.Cos(x[0]);
         double r = I3 / I1;
-        double torque = diskMass * gravity * diskOffset * sin;
+        double torqueWeight = diskMass * gravity * diskOffset * sin;
+        double torqueFriction = -2 * diskRadius * diskRadius * frictionCoeff * v[2];
 
         // Euler equations of motion
-        a[0] = (1 - r) * v[1] * v[1] * sin * cos - r * v[1] * v[2] * sin + torque / I1;
+        a[0] = (1 - r) * v[1] * v[1] * sin * cos - r * v[1] * v[2] * sin + torqueWeight / I1;
         a[1] = r * v[0] * (v[2] + v[1] * cos) / sin - 2 * v[0] * v[1] * cos / sin;
-        a[2] = v[0] * v[1] * sin - a[1] * cos;
+        a[2] = v[0] * v[1] * sin - a[1] * cos + torqueFriction / I3;
     }
 
     private void RotateAroundY(double deltaTime)
@@ -215,32 +217,32 @@ public class TopSimulation : Simulation
         }
     }
 
-    private void TakeYoshidaStep(double deltaTime)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            // Drift
-            for (int j = 0; j < 3; j++)
-            {
-                x[j] += c[i] * deltaTime * v[j];
-            }
+    // private void TakeYoshidaStep(double deltaTime)
+    // {
+    //     for (int i = 0; i < 3; i++)
+    //     {
+    //         // Drift
+    //         for (int j = 0; j < 3; j++)
+    //         {
+    //             x[j] += c[i] * deltaTime * v[j];
+    //         }
 
-            // Compute Accelerations
-            ComputeAccelerations();
+    //         // Compute Accelerations
+    //         ComputeAccelerations();
 
-            // Kick
-            for (int j = 0; j < 3; j++)
-            {
-                v[j] += d[i] * deltaTime * a[j];
-            }
-        }
+    //         // Kick
+    //         for (int j = 0; j < 3; j++)
+    //         {
+    //             v[j] += d[i] * deltaTime * a[j];
+    //         }
+    //     }
 
-        // Final drift
-        for (int j = 0; j < 3; j++)
-        {
-            x[j] = WrapAngle(x[j] + c[3] * deltaTime * v[j]);
-        }
-    }
+    //     // Final drift
+    //     for (int j = 0; j < 3; j++)
+    //     {
+    //         x[j] = WrapAngle(x[j] + c[3] * deltaTime * v[j]);
+    //     }
+    // }
 
     private double WrapAngle(double value)
     {
@@ -412,6 +414,11 @@ public class TopSimulation : Simulation
         diskMass = value;
         data.initialEnergy = 0;  // Why do we need to do this for mass but not the others?
         PropagateTopSettingChange();
+    }
+
+    public void SetFrictionCoefficient(float value)
+    {
+        frictionCoeff = value;
     }
 
     private void PropagateTopSettingChange()

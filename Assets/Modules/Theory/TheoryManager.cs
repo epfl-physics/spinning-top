@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TheoryManager : MonoBehaviour
 {
@@ -14,9 +15,14 @@ public class TheoryManager : MonoBehaviour
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject pauseButton;
 
+    [Header("Vectors")]
+    [SerializeField] private VectorManager vectors;
+    [SerializeField] private Toggle vectorScaleToggle;
+
     private enum SimMode { Top, Wheel }
     [Header("Settings")]
     [SerializeField] private SimMode simMode = default;
+    [SerializeField] private float frictionCoefficient = 0.1f;
 
     private float psiDotSign = 1;
 
@@ -24,6 +30,8 @@ public class TheoryManager : MonoBehaviour
     {
         ResetSimulations();
         ResetCamera(1);
+
+        if (vectors && vectorScaleToggle) vectors.SetVectorScale(vectorScaleToggle.isOn);
     }
 
     public void Play()
@@ -124,7 +132,7 @@ public class TheoryManager : MonoBehaviour
         {
             if (simMode == SimMode.Wheel)
             {
-                wheelSim.SetPhiDot0(psiDotSign * 25);
+                wheelSim.SetPhiDot0(psiDotSign * 26.5f);
                 wheelSim.SetPsiDot0(psiDotSign * 3000);
             }
         }
@@ -134,5 +142,20 @@ public class TheoryManager : MonoBehaviour
     {
         ResetImmediately();
         SetRotationDirection(isPositive);
+    }
+
+    public void SetFrictionCoefficient(bool includeFriction)
+    {
+        float value = includeFriction ? frictionCoefficient : 0;
+
+        if (topSim) topSim.SetFrictionCoefficient(value);
+        if (wheelSim) wheelSim.SetFrictionCoefficient(value);
+
+    }
+
+    public void SetFrictionCoefficientAndReset(bool includeFriction)
+    {
+        if (!includeFriction) ResetImmediately();
+        SetFrictionCoefficient(includeFriction);
     }
 }
