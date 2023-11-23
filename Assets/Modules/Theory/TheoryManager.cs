@@ -157,5 +157,7 @@ public class TheoryManager : MonoBehaviour
     {
         if (!includeFriction) ResetImmediately();
         SetFrictionCoefficient(includeFriction);
+        // Reset again to make sure friction vector is redrawn
+        ResetImmediately();
     }
 }

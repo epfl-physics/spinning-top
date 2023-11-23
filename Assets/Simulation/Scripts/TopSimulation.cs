@@ -296,6 +296,7 @@ public class TopSimulation : Simulation
 
         // Compute torque
         data.torque = diskMass * gravity * diskOffset * sin * e1;
+        data.frictionTorque = -2 * diskRadius * diskRadius * frictionCoeff * data.psiDot * e3;
 
         // Compute Energy
         float energy = ComputeEnergy(e1, e2, sin, cos);
@@ -502,6 +503,7 @@ public class TopData
     [Header("Dynamics")]
     [Tooltip("In kg * m^2 / s")] public Vector3 angularMomentum;
     [Tooltip("In kg * m^2 / s^2")] public Vector3 torque;
+    [Tooltip("In kg * m^2 / s^2")] public Vector3 frictionTorque;
 
     [Header("Energy")]
     public float initialEnergy;

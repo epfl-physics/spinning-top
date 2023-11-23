@@ -93,7 +93,7 @@ public class TheoryCameraController : MonoBehaviour
         if (cameraOrbit)
         {
             cameraOrbit.target = topTarget;
-            cameraOrbit.minPolarAngle = 0;
+            cameraOrbit.minPolarAngle = -45;
             cameraOrbit.maxPolarAngle = 89.9f;
             cameraOrbit.canOrbit = false;
         }

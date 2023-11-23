@@ -45,6 +45,9 @@ public class VectorManager : MonoBehaviour
             case VectorDisplay.Type.Weight:
                 components = simState.data.diskMass * simState.data.gravity * Vector3.down;
                 break;
+            case VectorDisplay.Type.FrictionTorque:
+                components = simState.data.frictionTorque;
+                break;
             default:
                 break;
         }
@@ -119,7 +122,7 @@ public class VectorManager : MonoBehaviour
 [System.Serializable]
 public class VectorDisplay
 {
-    public enum Type { ThetaDot, PhiDot, PsiDot, AngularVelocity, AngularMomentum, Torque, Weight }
+    public enum Type { ThetaDot, PhiDot, PsiDot, AngularVelocity, AngularMomentum, Torque, Weight, FrictionTorque }
     public Type type;
     public Vector vector;
     public float scaleFactor = 1;
