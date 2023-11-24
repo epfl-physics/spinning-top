@@ -724,12 +724,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6630728238506993889, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
       propertyPath: textData.Array.data[0].text
-      value: Determine the orientation of torque and in which direction the top precesses.
+      value: Determine the orientation of torque and in which direction a horizontal
+        wheel precesses.
       objectReference: {fileID: 0}
     - target: {fileID: 6630728238506993889, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
       propertyPath: textData.Array.data[1].text
       value: "D\xE9terminer l'orientation du moment de force et le sens de pr\xE9cession
-        de la toupie."
+        d'une roue horizontale."
+      objectReference: {fileID: 0}
+    - target: {fileID: 6630728238506993890, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 241
       objectReference: {fileID: 0}
     - target: {fileID: 6630728238529657200, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
       propertyPath: m_Pivot.x
