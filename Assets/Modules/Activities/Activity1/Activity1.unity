@@ -1645,7 +1645,7 @@ MonoBehaviour:
     text: Try another example
     visibleUI: {fileID: 0}
   - language: 1
-    text: Essayez un autre exemple
+    text: Essayez une autre configuration
     visibleUI: {fileID: 0}
 --- !u!114 &500015465
 MonoBehaviour:
@@ -1667,7 +1667,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Essayez un autre exemple
+  m_text: Essayez une autre configuration
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7bea0ee510519418e83160323e771f52, type: 2}
   m_sharedMaterial: {fileID: -4219023752200370933, guid: 7bea0ee510519418e83160323e771f52, type: 2}
@@ -4636,8 +4636,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4852161584250708895, guid: 6a1f129935b6f489fb86702340482097, type: 3}
       propertyPath: textData.Array.data[1].text
-      value: "Utilisez les sliders pour faire pivoter la toupie et faire \ncorrespondre
-        l'orientation de la r\xE9f\xE9rence montr\xE9e"
+      value: "Utilisez le curseur pour faire tourner la toupie et\n la faire correspondre
+        \xE0 l'orientation de r\xE9f\xE9rence"
       objectReference: {fileID: 0}
     - target: {fileID: 4852161584887105402, guid: 6a1f129935b6f489fb86702340482097, type: 3}
       propertyPath: m_Name
@@ -5151,7 +5151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1875552355645907320, guid: d460aa25934274b49adcdff1c97dd1f4, type: 3}
       propertyPath: m_text
-      value: Show relative basis
+      value: Show the frame of the solid
       objectReference: {fileID: 0}
     - target: {fileID: 1875552356108428309, guid: d460aa25934274b49adcdff1c97dd1f4, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5291,11 +5291,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5703257355305875093, guid: d460aa25934274b49adcdff1c97dd1f4, type: 3}
       propertyPath: textData.Array.data[0].text
-      value: Show relative basis
+      value: Show the frame of the solid
       objectReference: {fileID: 0}
     - target: {fileID: 5703257355305875093, guid: d460aa25934274b49adcdff1c97dd1f4, type: 3}
       propertyPath: textData.Array.data[1].text
-      value: "Montrer le r\xE9f\xE9rentiel relatif"
+      value: "Montrer le rep\xE8re du solide"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d460aa25934274b49adcdff1c97dd1f4, type: 3}

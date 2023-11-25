@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SandboxManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class SandboxManager : MonoBehaviour
     [SerializeField] private TopSimulation sim;
     [SerializeField] private TopSimulationState simState;
     [SerializeField] private InitialData initialData;
+    [SerializeField] private float frictionCoefficient = 0.1f;
 
     [Header("Slider Groups")]
     [SerializeField] private SlidersContainer[] slidersContainers;
@@ -29,8 +31,12 @@ public class SandboxManager : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private GameObject oopsPanel;
 
-    [Header("Object Outlines")]
-    [SerializeField] private Transform rodOutline;
+    [Header("Vectors")]
+    [SerializeField] private VectorManager vectors;
+    [SerializeField] private Toggle vectorScaleToggle;
+
+    // [Header("Object Outlines")]
+    // [SerializeField] private Transform rodOutline;
 
     private bool isUpdatingUI;
 
@@ -47,6 +53,8 @@ public class SandboxManager : MonoBehaviour
     private void Start()
     {
         Reset();
+
+        if (vectors && vectorScaleToggle) vectors.SetVectorScale(vectorScaleToggle.isOn);
     }
 
     public void Play()
@@ -199,6 +207,21 @@ public class SandboxManager : MonoBehaviour
         sim.SetPsiDot0(initialData.psiDot0);
 
         sim.Reset();
+    }
+
+    public void SetFrictionCoefficient(bool includeFriction)
+    {
+        float value = includeFriction ? frictionCoefficient : 0;
+
+        if (sim) sim.SetFrictionCoefficient(value);
+    }
+
+    public void SetFrictionCoefficientAndReset(bool includeFriction)
+    {
+        if (!includeFriction) Reset();
+        SetFrictionCoefficient(includeFriction);
+        // Reset again to make sure friction vector is redrawn
+        Reset();
     }
 
     public void HandleTopHasBecomeUnstable()

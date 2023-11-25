@@ -495,4 +495,4 @@ MonoBehaviour:
   label: {fileID: 3382114625301834863}
   components: {x: 1, y: 2, z: 0}
   selectedColor: {r: 0.28627452, g: 0.78431374, b: 0.8352941, a: 1}
-  defaultWidth: 0.15
+  defaultWidth: 0.2

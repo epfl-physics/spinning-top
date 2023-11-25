@@ -540,8 +540,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 2011053121}
-  - {fileID: 1116105989}
   - {fileID: 1476252126}
+  - {fileID: 1116105989}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -603,7 +603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1610463190247839496, guid: 930c101ab32c94575bce33c435193995, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1610463190247839496, guid: 930c101ab32c94575bce33c435193995, type: 3}
       propertyPath: m_AnchorMax.x
@@ -720,15 +720,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6630728238506993888, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
       propertyPath: m_text
-      value: Find the correct Euler angles for a given orientation of the top.
-      objectReference: {fileID: 0}
-    - target: {fileID: 6630728238506993889, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
-      propertyPath: textData.Array.data[0].text
       value: Determine the orientation of torque and in which direction the top precesses.
       objectReference: {fileID: 0}
     - target: {fileID: 6630728238506993889, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
+      propertyPath: textData.Array.data[0].text
+      value: Determine the orientation of torque and in which direction a horizontal
+        wheel precesses.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6630728238506993889, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
       propertyPath: textData.Array.data[1].text
-      value: Texte...
+      value: "D\xE9terminer l'orientation du moment de force et le sens de pr\xE9cession
+        d'une roue horizontale."
+      objectReference: {fileID: 0}
+    - target: {fileID: 6630728238506993890, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 241
       objectReference: {fileID: 0}
     - target: {fileID: 6630728238529657200, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
       propertyPath: m_Pivot.x
@@ -740,7 +746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6630728238529657200, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6630728238529657200, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
       propertyPath: m_AnchorMax.x
@@ -948,7 +954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6630728238506993889, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
       propertyPath: textData.Array.data[1].text
-      value: Texte...
+      value: "Trouver les angles d'Euler pour une orientation donn\xE9e de la toupie."
       objectReference: {fileID: 0}
     - target: {fileID: 6630728238529657200, guid: 9ee20eafb5f094ea6b6424bb51947619, type: 3}
       propertyPath: m_Pivot.x

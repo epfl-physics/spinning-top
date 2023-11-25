@@ -123,6 +123,81 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &17284185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 17284186}
+  - component: {fileID: 17284188}
+  - component: {fileID: 17284187}
+  m_Layer: 5
+  m_Name: psi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &17284186
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17284185}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.22, y: 0.22, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1013185449}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 106.82, y: -23.5}
+  m_SizeDelta: {x: 56, y: 80}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &17284187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17284185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 670dc78b2871e47f7a33f7fdad0d07ce, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &17284188
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17284185}
+  m_CullTransparentMesh: 1
 --- !u!1001 &53508411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -138,6 +213,14 @@ PrefabInstance:
         place on the ground. In addition, the direction of the axis itself changes
         over time.
       objectReference: {fileID: 0}
+    - target: {fileID: 1501862272995550037, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
+      propertyPath: textData.Array.data[1].text
+      value: "Une toupie est un syst\xE8me dynamique complexe. Remarquez les diff\xE9rentes
+        fa\xE7ons dont elle peut tourner. Elle tourne tr\xE8s rapidement autour de
+        son <font-weight=\"700\"><color=#ACACAC>axe de sym\xE9trie</color></font-weight>
+        (la tige) dont une extr\xE9mit\xE9 a \xE9t\xE9 fix\xE9e au sol. De plus,
+        la direction de l'axe change au cours du temps."
+      objectReference: {fileID: 0}
     - target: {fileID: 1501862272995550042, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: m_text
       value: A spinning top is a dynamically complex system. Notice the different
@@ -148,7 +231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5144281310614083355, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: m_Alpha
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5144281310614083357, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: m_Pivot.x
@@ -331,10 +414,10 @@ RectTransform:
   m_Father: {fileID: 2010381738}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 12.295652, y: -9}
+  m_SizeDelta: {x: 24.591305, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &170681902
 MonoBehaviour:
@@ -406,10 +489,10 @@ RectTransform:
   m_Father: {fileID: 2010381738}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 69.80435, y: -9}
+  m_SizeDelta: {x: 24.591305, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &188857182
 MonoBehaviour:
@@ -738,12 +821,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1501862272995550037, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: textData.Array.data[0].text
-      value: Finally we have the <font-weight="700"><color=#5BABF1>intrinsic rotation</color></font-weight>,
-        which tells us by how much the top has rotated about its own axis (the rod).
+      value: Finally we have the <font-weight="700"><color=#5BABF1>intrinsic rotation</color></font-weight>
+        angle, which tells us by how much the top has rotated about its own axis
+        (the rod).
+      objectReference: {fileID: 0}
+    - target: {fileID: 1501862272995550037, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
+      propertyPath: textData.Array.data[1].text
+      value: Finalement, l'angle de <font-weight="700"><color=#5BABF1>rotation propre</color></font-weight>
+        nous indique l'amplitude de la rotation de la toupie autour de son axe de
+        rotation propre (la tige).
       objectReference: {fileID: 0}
     - target: {fileID: 1501862272995550042, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: m_text
-      value: Finally we have the <font-weight="700"><color=#5BABF1>intrinsic</color></font-weight>
+      value: Finally we have the <font-weight="700"><color=#5BABF1>intrinsic rotation</color></font-weight>
         angle, which tells us by how much the top has rotated about its own axis
         (the rod).
       objectReference: {fileID: 0}
@@ -1467,10 +1557,10 @@ RectTransform:
   m_Father: {fileID: 2010381738}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 41.050003, y: -9}
+  m_SizeDelta: {x: 21.517391, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &392541500
 MonoBehaviour:
@@ -1522,6 +1612,12 @@ PrefabInstance:
       value: One number is the angle that the rod makes with the vertical. This is
         called the <font-weight="700"><color=#83E1B5>nutation</color></font-weight>,
         or <i>polar</i>, angle. Try moving the slider to visualise it.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1501862272995550037, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
+      propertyPath: textData.Array.data[1].text
+      value: "Un nombre est l'angle que fait la tige avec l'axe vertical. Ce nombre
+        est appel\xE9 l'angle de <font-weight=\"700\"><color=#83E1B5>nutation</color></font-weight>,
+        ou l'angle <i>polaire</i>. D\xE9placez le curseur pour le visualiser."
       objectReference: {fileID: 0}
     - target: {fileID: 1501862272995550042, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: m_text
@@ -1745,6 +1841,10 @@ PrefabInstance:
       propertyPath: textData.Array.data[0].text
       value: Why does it take three? What are they?
       objectReference: {fileID: 0}
+    - target: {fileID: 6257136877173775410, guid: ccc12b8ffc56a4453829f75b0e33d480, type: 3}
+      propertyPath: textData.Array.data[1].text
+      value: Pourquoi trois nombres ? Quels sont ces nombres ?
+      objectReference: {fileID: 0}
     - target: {fileID: 6257136877173775411, guid: ccc12b8ffc56a4453829f75b0e33d480, type: 3}
       propertyPath: m_text
       value: Why does it take three? What are they?
@@ -1851,6 +1951,71 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccc12b8ffc56a4453829f75b0e33d480, type: 3}
+--- !u!1 &488570797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 488570798}
+  - component: {fileID: 488570799}
+  m_Layer: 5
+  m_Name: FR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &488570798
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488570797}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1159626051}
+  - {fileID: 1771641556}
+  - {fileID: 1144937328}
+  m_Father: {fileID: 737019758}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 161.52, y: -1.1}
+  m_SizeDelta: {x: 82.1, y: 18}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &488570799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488570797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: 8
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
+  m_ReverseArrangement: 0
 --- !u!43 &496878804
 Mesh:
   m_ObjectHideFlags: 0
@@ -2092,8 +2257,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524423457}
-  m_LocalRotation: {x: 0.061048545, y: 0, z: 0, w: 0.99813485}
-  m_LocalPosition: {x: 0, y: 4, z: -12}
+  m_LocalRotation: {x: 0.021814886, y: 0, z: 0, w: 0.99976206}
+  m_LocalPosition: {x: 0, y: 2.8, z: -9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3001,7 +3166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &749254834
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3016,7 +3181,7 @@ RectTransform:
   - {fileID: 1421233782}
   - {fileID: 1899829496}
   m_Father: {fileID: 1419696427}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3120,6 +3285,81 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3186cec9a2c954ee08ff552192383797, type: 3}
+--- !u!1 &939999582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 939999583}
+  - component: {fileID: 939999585}
+  - component: {fileID: 939999584}
+  m_Layer: 5
+  m_Name: (theta, phi)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &939999583
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939999582}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.22, y: 0.22, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1013185449}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 18.5, y: 43.8}
+  m_SizeDelta: {x: 184, y: 88}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &939999584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939999582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 1868cda3a99244830882cee07b26d515, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &939999585
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939999582}
+  m_CullTransparentMesh: 1
 --- !u!1 &989421038
 GameObject:
   m_ObjectHideFlags: 0
@@ -3195,6 +3435,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989421038}
   m_CullTransparentMesh: 1
+--- !u!1 &1013185448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1013185449}
+  m_Layer: 5
+  m_Name: LaTeX_FR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1013185449
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013185448}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 939999583}
+  - {fileID: 17284186}
+  m_Father: {fileID: 1419696427}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!43 &1019123570
 Mesh:
   m_ObjectHideFlags: 0
@@ -4025,6 +4302,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1896cd7a2df9242b88530a09810b6c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1144937327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1144937328}
+  - component: {fileID: 1144937330}
+  - component: {fileID: 1144937329}
+  m_Layer: 5
+  m_Name: Phi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1144937328
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144937327}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 488570798}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1144937329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144937327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.35686275, g: 0.67058825, b: 0.94509804, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: efc225f008c1d42fd8d2b6b4597eae89, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1144937330
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144937327}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1157700832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4246,6 +4598,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1896cd7a2df9242b88530a09810b6c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1159626050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1159626051}
+  - component: {fileID: 1159626053}
+  - component: {fileID: 1159626052}
+  m_Layer: 5
+  m_Name: Psi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1159626051
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159626050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 488570798}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1159626052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159626050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.5568628, b: 0.41568628, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 329d7045c55de404fbf2aa4238b48893, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1159626053
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159626050}
+  m_CullTransparentMesh: 1
 --- !u!224 &1161499785 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 513761572651243682, guid: 90427ada812274cd0a4a5a7fa57f0243, type: 3}
@@ -5376,6 +5803,12 @@ PrefabInstance:
         or <i>azimuthal</i>, angle, which tells us how far around in the horizontal
         plane the top has traveled.
       objectReference: {fileID: 0}
+    - target: {fileID: 1501862272995550037, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
+      propertyPath: textData.Array.data[1].text
+      value: "Le nombre suivant est l'angle de <font-weight=\"700\"><color=#FF8E6A>pr\xE9cession</color></font-weight>,
+        ou l'angle <i>azimutal</i>, qui nous indique la distance parcourue par la
+        toupie dans le plan horizontal."
+      objectReference: {fileID: 0}
     - target: {fileID: 1501862272995550042, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: m_text
       value: Next is the <font-weight="700"><color=#FF8E6A>precession</color></font-weight>,
@@ -5794,6 +6227,12 @@ PrefabInstance:
       value: How can we quantitatively describe the motion of such a system? To start,
         we can notice that it takes <b>three numbers</b> to fully describe the orientation
         of the top at any given moment in time.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1501862272995550037, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
+      propertyPath: textData.Array.data[1].text
+      value: "Comment d\xE9crire de mani\xE8re quantative le mouvement d'un tel syst\xE8me
+        ? Pour commencer, on remarque qu'il faut <b>trois nombres</b> pour d\xE9crire
+        compl\xE8tement l'orientation de la toupie \xE0 chaque instant."
       objectReference: {fileID: 0}
     - target: {fileID: 1501862272995550042, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: m_text
@@ -6216,6 +6655,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766163484}
+  m_CullTransparentMesh: 1
+--- !u!1 &1771641555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1771641556}
+  - component: {fileID: 1771641558}
+  - component: {fileID: 1771641557}
+  m_Layer: 5
+  m_Name: Theta
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1771641556
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771641555}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 488570798}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1771641557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771641555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.5137255, g: 0.88235295, b: 0.70980394, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b83422ca0806a426daf04e159c26530f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1771641558
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771641555}
   m_CullTransparentMesh: 1
 --- !u!114 &1785838213 stripped
 MonoBehaviour:
@@ -6936,9 +7450,20 @@ PrefabInstance:
         set of coordinates to generically describe the orientation of rigid bodies.
       objectReference: {fileID: 0}
     - target: {fileID: 1501862272995550037, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
+      propertyPath: textData.Array.data[1].text
+      value: "Ces trois angles (<color=#ffffff00>----</color>, <color=#ffffff00>---</color>,
+        <color=#ffffff00>---</color>) sont appel\xE9s les <b>angles d'Euler</b>.
+        C'est un ensemble de coordonn\xE9es pratiques pour d\xE9crire l'orientation
+        des solides ind\xE9formables de mani\xE8re g\xE9n\xE9rique."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1501862272995550037, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: textData.Array.data[0].visibleUI
       value: 
       objectReference: {fileID: 2010381738}
+    - target: {fileID: 1501862272995550037, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
+      propertyPath: textData.Array.data[1].visibleUI
+      value: 
+      objectReference: {fileID: 488570798}
     - target: {fileID: 1501862272995550042, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: m_text
       value: These three angles (<color=#ffffff00> __</color>, <color=#ffffff00>__</color>,
@@ -6947,7 +7472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5144281310614083355, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: m_Alpha
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5144281310614083357, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: m_Pivot.x
@@ -7147,7 +7672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2010381738
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7388,9 +7913,22 @@ PrefabInstance:
         to complete the full accounting of their orientation.
       objectReference: {fileID: 0}
     - target: {fileID: 7750582857793131830, guid: 86ffc1480fc5842db82e7a5e628ae535, type: 3}
+      propertyPath: textData.Array.data[1].text
+      value: "Remarquez comment les angles <color=#ffffff00>aaaaa</color> d\xE9finissent
+        un <b><color=#ff0000>point</color></b> sur une sph\xE8re. Ces deux degr\xE9s
+        de libert\xE9 correspondent aux deux angles des coordonn\xE9es sph\xE9riques.
+        En revanche, les solides ind\xE9formables requi\xE8rent un degr\xE9 de libert\xE9
+        suppl\xE9mentaire <color=#ffffff00>cc</color> pour compl\xE8tement d\xE9crire
+        leur orientation."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750582857793131830, guid: 86ffc1480fc5842db82e7a5e628ae535, type: 3}
       propertyPath: textData.Array.data[0].visibleUI
       value: 
       objectReference: {fileID: 749254834}
+    - target: {fileID: 7750582857793131830, guid: 86ffc1480fc5842db82e7a5e628ae535, type: 3}
+      propertyPath: textData.Array.data[1].visibleUI
+      value: 
+      objectReference: {fileID: 1013185449}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86ffc1480fc5842db82e7a5e628ae535, type: 3}
 --- !u!1 &2086032813

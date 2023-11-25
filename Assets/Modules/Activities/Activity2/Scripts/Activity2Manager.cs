@@ -87,16 +87,11 @@ public class Activity2Manager : MonoBehaviour
     {
         if (!sim) return;
 
-        float phi = Random.Range(0, 359);
-        float theta = Random.Range(45, 135);
-        while (Mathf.Abs(90 - theta) < 5)
-        {
-            theta = Random.Range(45, 135);
-        }
+        float phi = Random.Range(0, 4) * 90;
+        float theta = 90;
         if (isFirstLoad)
         {
             phi = 180;
-            theta = 70;
             isFirstLoad = false;
         }
         float psiDot = signPsiDot * 3000;
