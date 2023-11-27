@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Activity2Manager : MonoBehaviour
 {
@@ -12,241 +9,68 @@ public class Activity2Manager : MonoBehaviour
     [Header("Instructions")]
     [SerializeField] private Activity2Instructions instructions;
 
-    [Header("Vectors")]
-    [SerializeField] private GameObject vectorPrefab;
-
-    [Header("Labels")]
-    [SerializeField] private GameObject principalAxesOrigin;
-
-    [Header("UI")]
-    [SerializeField] private Button verifyButton;
+    [Header("Feedback")]
     [SerializeField] private CanvasGroup winPanel;
     [SerializeField] private CanvasGroupFader tryAgainPanel;
-
-    [Header("Feedback")]
     [SerializeField] private SoundEffect successBell;
+    [SerializeField] private SoundEffect nopeSound;
     [SerializeField] private GameObject confetti;
-
-    private const float torqueMagnitude = 1.2f;
-    private float signPsiDot = -1;
-
-    private Transform vectorContainer;
-    private List<ClickableVector> vectors;
-    private List<Vector3> initialComponents;
+    [SerializeField] private bool volumeIsOn = true;
 
     private bool isFirstLoad = true;
-    private Coroutine pulsateVectors;
-
-    private void Awake()
-    {
-        vectorContainer = new GameObject("Vectors").transform;
-        vectorContainer.SetParent(transform, false);
-
-        vectors = new List<ClickableVector>();
-        initialComponents = new List<Vector3>();
-    }
+    private float signPsiDot = -1;
 
     private void OnEnable()
     {
-        ClickableVector.OnSelected += HandleVectorSelected;
-        ClickableVector.OnDeselected += HandleVectorDeselected;
+        Activity2Step1.OnAnswerCorrect += ShowWinPanel;
+        Activity2Step1.OnAnswerIncorrect += ShowTryAgainPanel;
+
+        Activity2Step2.OnAnswerCorrect += ShowWinPanel;
+        Activity2Step2.OnAnswerIncorrect += ShowTryAgainPanel;
+
         // CameraController.OnCameraMovementComplete += HandleCameraMovementComplete;
     }
 
     private void OnDisable()
     {
-        ClickableVector.OnSelected -= HandleVectorSelected;
-        ClickableVector.OnDeselected -= HandleVectorDeselected;
+        Activity2Step1.OnAnswerCorrect -= ShowWinPanel;
+        Activity2Step1.OnAnswerIncorrect -= ShowTryAgainPanel;
+
+        Activity2Step2.OnAnswerCorrect -= ShowWinPanel;
+        Activity2Step2.OnAnswerIncorrect -= ShowTryAgainPanel;
+
         // CameraController.OnCameraMovementComplete -= HandleCameraMovementComplete;
     }
 
     private void Start()
     {
-        Randomize();
-
-        // Visual cue for the user to click on a vector
-        pulsateVectors = StartCoroutine(PulsateVectors());
+        Reset();
     }
 
-    private void LateUpdate()
+    public void InitializeSimulation()
     {
-        if (!sim || !simState) return;
+        HideWinPanel();
+        HideTryAgainPanel();
 
-        // Update the torque vector and principal axes origin
-        if (!sim.IsPaused)
-        {
-            Vector3 torque = torqueMagnitude * simState.data.torque.normalized;
-            // There should only be one vector remaining in the list if the sim is running
-            vectors[0].SetComponents(torque);
-
-            PlacePrincipalAxisOrigin();
-        }
-    }
-
-    public void Randomize()
-    {
         if (!sim) return;
 
-        float phi = Random.Range(0, 4) * 90;
+        // Make sure the simulation isn't running
+        sim.Pause();
+
+        // Choose an azimuthal angle
+        float phi = isFirstLoad ? 180 : Random.Range(0, 4) * 90;
+        if (isFirstLoad) isFirstLoad = false;
+
+        // Set the other two Euler angles
         float theta = 90;
-        if (isFirstLoad)
-        {
-            phi = 180;
-            isFirstLoad = false;
-        }
         float psiDot = signPsiDot * 3000;
-        // Switch sign for next time
-        signPsiDot *= -1;
+        signPsiDot *= -1;  // Switch sign for next time
 
         // TODO this is not efficient, since each time a param is set the top redraws
         sim.SetPhi0(phi);
         sim.SetTheta0(theta);
         sim.SetPhiDot0(Mathf.Sign(psiDot) * 25);
         sim.SetPsiDot0(psiDot);
-
-        ClearVectors();
-        DrawOptionVectors();
-
-        HideWinPanel();
-        HideTryAgainPanel();
-        SetButtonInteractable(verifyButton, false);
-        ShowInstructionStep(1);
-        PlacePrincipalAxisOrigin();
-    }
-
-    private void ClearVectors()
-    {
-        vectors.Clear();
-
-        // Destroy any current vectors
-        for (int i = vectorContainer.childCount; i > 0; i--)
-        {
-            DestroyImmediate(vectorContainer.GetChild(0).gameObject);
-        }
-    }
-
-    private void ClearIncorrectVectors()
-    {
-        vectors.RemoveRange(1, vectors.Count - 1);
-
-        for (int i = vectorContainer.childCount - 1; i > 0; i--)
-        {
-            DestroyImmediate(vectorContainer.GetChild(1).gameObject);
-        }
-
-        vectors[0].SetInteractable(false);
-    }
-
-    private void DrawOptionVectors()
-    {
-        if (!vectorPrefab || !simState) return;
-
-        Vector3 torque = torqueMagnitude * simState.data.torque.normalized;
-
-        // Create new vectors
-        ClickableVector vectorTrue = Instantiate(vectorPrefab, vectorContainer).GetComponent<ClickableVector>();
-        vectorTrue.name = "Truth";
-        vectorTrue.SetComponents(torque);
-        vectors.Add(vectorTrue);
-        initialComponents.Add(vectorTrue.Components);
-
-        ClickableVector vector1 = Instantiate(vectorPrefab, vectorContainer).GetComponent<ClickableVector>();
-        vector1.name = "Vector1";
-        vector1.SetComponents(-torque);
-        vectors.Add(vector1);
-        initialComponents.Add(vector1.Components);
-
-        ClickableVector vector2 = Instantiate(vectorPrefab, vectorContainer).GetComponent<ClickableVector>();
-        vector2.name = "Vector2";
-        vector2.SetComponents(Quaternion.Euler(0, -90, 0) * torque);
-        vectors.Add(vector2);
-        initialComponents.Add(vector2.Components);
-
-        ClickableVector vector3 = Instantiate(vectorPrefab, vectorContainer).GetComponent<ClickableVector>();
-        vector3.name = "Vector3";
-        vector3.SetComponents(-vector2.Components);
-        vectors.Add(vector3);
-        initialComponents.Add(vector3.Components);
-
-        ClickableVector vector4 = Instantiate(vectorPrefab, vectorContainer).GetComponent<ClickableVector>();
-        vector4.name = "Vector4";
-        vector4.SetComponents(torque.magnitude * Vector3.up);
-        vectors.Add(vector4);
-        initialComponents.Add(vector4.Components);
-
-        ClickableVector vector5 = Instantiate(vectorPrefab, vectorContainer).GetComponent<ClickableVector>();
-        vector5.name = "Vector5";
-        vector5.SetComponents(torque.magnitude * Vector3.down);
-        vectors.Add(vector5);
-        initialComponents.Add(vector5.Components);
-    }
-
-    public void HandleVectorSelected(ClickableVector selectedVector)
-    {
-        if (!vectors.Contains(selectedVector)) return;
-
-        // Debug.Log(selectedVector.name + " selected");
-        foreach (ClickableVector vector in vectors)
-        {
-            if (vector != selectedVector)
-            {
-                if (vector.IsSelected) vector.OnClick();
-            }
-        }
-
-        SetButtonInteractable(verifyButton, true);
-
-        if (pulsateVectors != null)
-        {
-            StopCoroutine(pulsateVectors);
-            RestoreInitialVectors();
-            pulsateVectors = null;
-        }
-    }
-
-    public void HandleVectorDeselected(ClickableVector deselectedVector)
-    {
-        if (!vectors.Contains(deselectedVector)) return;
-
-        bool noVectorSelected = true;
-
-        // Debug.Log(deselectedVector.name + " deselected");
-        foreach (ClickableVector vector in vectors)
-        {
-            if (vector.IsSelected)
-            {
-                noVectorSelected = false;
-                break;
-            }
-        }
-
-        if (noVectorSelected) SetButtonInteractable(verifyButton, false);
-    }
-
-    private void SetButtonInteractable(Button button, bool isInteractable)
-    {
-        if (!button) return;
-
-        button.interactable = isInteractable;
-
-        if (button.TryGetComponent(out CursorHoverUI cursorHover))
-        {
-            cursorHover.enabled = isInteractable;
-        }
-    }
-
-    public void CheckAnswer()
-    {
-        if (vectors[0].IsSelected)
-        {
-            ClearIncorrectVectors();
-            ShowWinPanel();
-            vectors[0].SetLabelVisibility(true);
-        }
-        else
-        {
-            ShowTryAgainPanel();
-        }
     }
 
     public void ShowWinPanel()
@@ -260,7 +84,7 @@ public class Activity2Manager : MonoBehaviour
             winPanel.blocksRaycasts = true;
         }
 
-        if (successBell && TryGetComponent(out AudioSource audioSource))
+        if (volumeIsOn && successBell && TryGetComponent(out AudioSource audioSource))
         {
             successBell.Play(audioSource);
         }
@@ -286,41 +110,18 @@ public class Activity2Manager : MonoBehaviour
     private void ShowTryAgainPanel()
     {
         if (tryAgainPanel) tryAgainPanel.Show();
-    }
 
-    public void ShowInstructionStep(int id)
-    {
-        if (instructions) instructions.ShowStep(id);
-    }
-
-    private IEnumerator PulsateVectors()
-    {
-        yield return new WaitForSeconds(2);
-
-        float time = 0;
-        while (time < 3f)
+        if (volumeIsOn && nopeSound && TryGetComponent(out AudioSource audioSource))
         {
-            time += Time.deltaTime;
-            for (int i = 0; i < vectors.Count; i++)
-            {
-                ClickableVector vector = vectors[i];
-                Vector3 components = initialComponents[i];
-                vector.SetComponents((1 + 0.05f * Mathf.Sin(2 * Mathf.PI * time)) * components);
-            }
-            yield return null;
+            nopeSound.Play(audioSource);
         }
-
-        RestoreInitialVectors();
-        pulsateVectors = null;
     }
 
-    private void RestoreInitialVectors()
+    public void LoadNextStep()
     {
-        for (int i = 0; i < vectors.Count; i++)
-        {
-            ClickableVector vector = vectors[i];
-            vector.SetComponents(initialComponents[i]);
-        }
+        HideWinPanel();
+
+        if (instructions) instructions.LoadNextStep(sim, simState);
     }
 
     // public void HandleCameraMovementComplete(Vector3 position, Quaternion rotation)
@@ -333,11 +134,16 @@ public class Activity2Manager : MonoBehaviour
         if (instructions) instructions.ResetCamera();
     }
 
-    public void PlacePrincipalAxisOrigin()
+    public void Reset()
     {
-        if (principalAxesOrigin && simState)
-        {
-            principalAxesOrigin.transform.position = (simState.data.diskOffset - 0.4f) * simState.data.Direction + 0.4f * simState.data.E2Hat;
-        }
+        // Put the paused simulation in a random initial state
+        InitializeSimulation();
+
+        if (instructions) instructions.LoadStep1(simState);
+    }
+
+    public void ToggleVolume(bool isOn)
+    {
+        volumeIsOn = isOn;
     }
 }

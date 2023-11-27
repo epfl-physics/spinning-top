@@ -2,21 +2,43 @@ using UnityEngine;
 
 public class Activity2Instructions : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup step1;
-    [SerializeField] private CanvasGroup step2;
+    [Header("Instruction Steps")]
+    [SerializeField] private Activity2Step1 step1;
+    [SerializeField] private Activity2Step2 step2;
+    [SerializeField] private Activity2Step3 step3;
 
-    [Header("Step 2 camera")]
+    // Canvas group references for each step
+    private CanvasGroup step1CG;
+    private CanvasGroup step2CG;
+    private CanvasGroup step3CG;
+
+    [Header("Labels")]
+    [SerializeField] private GameObject principalAxesOrigin;
+
+    [Header("Vectors")]
+    [SerializeField] private Vector weightVector;
+    [SerializeField] private Vector angularMomentumVector;
+    [SerializeField] private Vector torqueVector;
+    [SerializeField] private float torqueMagnitude = 1.2f;
+
+    [Header("Camera")]
     [SerializeField] private CameraController cameraController;
-    // [SerializeField] private Vector3 position2 = 10 * Vector3.back;
-    // [SerializeField] private Vector3 rotation2 = default;
-    // [SerializeField] private float cameraDistance2 = 15;
 
+    // Camera
     private Vector3 position1;
     private Vector3 rotation1;
 
-    private void Start()
+    private int currentStepIndex;
+
+    private void Awake()
     {
-        ShowStep(1);
+        step1.TryGetComponent(out step1CG);
+        step2.TryGetComponent(out step2CG);
+        step3.TryGetComponent(out step3CG);
+
+        HideCanvasGroup(step1CG);
+        HideCanvasGroup(step2CG);
+        HideCanvasGroup(step3CG);
 
         if (cameraController)
         {
@@ -25,21 +47,81 @@ public class Activity2Instructions : MonoBehaviour
         }
     }
 
-    public void ShowStep(int id)
+    public void LoadStep1(TopSimulationState simState)
     {
-        if (id == 1)
+        if (!step1) return;
+
+        step1.Load(simState, torqueMagnitude);
+
+        if (weightVector)
         {
-            // Show step 1
-            ShowCanvasGroup(step1);
-            HideCanvasGroup(step2);
+            weightVector.transform.position = simState.data.diskOffset * simState.data.Direction;
+            weightVector.components = simState.data.gravity * simState.data.diskMass * Vector3.down;
+            weightVector.Redraw();
         }
-        else if (id == 2)
+
+        if (angularMomentumVector) angularMomentumVector.gameObject.SetActive(false);
+        if (torqueVector) torqueVector.gameObject.SetActive(false);
+
+        if (principalAxesOrigin && simState)
         {
-            // Show step 2
-            ShowCanvasGroup(step2);
-            HideCanvasGroup(step1);
-            // ZoomOut(cameraDistance2);
+            Vector3 positionG = (simState.data.diskOffset - 0.4f) * simState.data.Direction + 0.4f * simState.data.E2Hat;
+            principalAxesOrigin.transform.position = positionG;
         }
+
+        ShowCanvasGroup(step1CG);
+        HideCanvasGroup(step2CG);
+        HideCanvasGroup(step3CG);
+
+        currentStepIndex = 1;
+    }
+
+    private void LoadStep2(TopSimulationState simState)
+    {
+        if (!step2) return;
+
+        step2.Load(simState);
+
+        ShowCanvasGroup(step2CG);
+        HideCanvasGroup(step1CG);
+        HideCanvasGroup(step3CG);
+
+        if (angularMomentumVector)
+        {
+            angularMomentumVector.components = 1.5f * torqueMagnitude * simState.data.angularMomentum.normalized;
+            angularMomentumVector.gameObject.SetActive(true);
+        }
+
+        if (torqueVector)
+        {
+            torqueVector.components = torqueMagnitude * simState.data.torque.normalized;
+            torqueVector.gameObject.SetActive(true);
+        }
+
+        currentStepIndex = 2;
+    }
+
+    private void LoadStep3(TopSimulation sim, TopSimulationState simState)
+    {
+        if (!step3) return;
+
+        step3.Load(simState, weightVector, angularMomentumVector, torqueVector, torqueMagnitude);
+
+        ShowCanvasGroup(step3CG);
+        HideCanvasGroup(step1CG);
+        HideCanvasGroup(step2CG);
+
+        if (sim) sim.Resume();
+
+        currentStepIndex = 3;
+    }
+
+    public void LoadNextStep(TopSimulation sim, TopSimulationState simState)
+    {
+        if (currentStepIndex == 1)
+            LoadStep2(simState);
+        else if (currentStepIndex == 2)
+            LoadStep3(sim, simState);
     }
 
     private void ShowCanvasGroup(CanvasGroup cg)
