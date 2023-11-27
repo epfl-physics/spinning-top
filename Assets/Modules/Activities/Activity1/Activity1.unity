@@ -1095,13 +1095,14 @@ GameObject:
   - component: {fileID: 304288463}
   - component: {fileID: 304288462}
   - component: {fileID: 304288461}
+  - component: {fileID: 304288464}
   m_Layer: 5
   m_Name: Note
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &304288460
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1119,7 +1120,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 20, y: 100}
-  m_SizeDelta: {x: 280, y: 35}
+  m_SizeDelta: {x: 300, y: 40}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &304288461
 MonoBehaviour:
@@ -1189,8 +1190,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 8
@@ -1239,6 +1240,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 304288459}
   m_CullTransparentMesh: 1
+--- !u!225 &304288464
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304288459}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &312301198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5031,7 +5044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4852161584887105406, guid: 6a1f129935b6f489fb86702340482097, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4852161584887105406, guid: 6a1f129935b6f489fb86702340482097, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -5044,7 +5057,7 @@ PrefabInstance:
     - target: {fileID: 4852161584887105406, guid: 6a1f129935b6f489fb86702340482097, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 304288459}
+      objectReference: {fileID: 304288464}
     - target: {fileID: 4852161584887105406, guid: 6a1f129935b6f489fb86702340482097, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -5067,7 +5080,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4852161584887105406, guid: 6a1f129935b6f489fb86702340482097, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
-      value: SetActive
+      value: set_alpha
       objectReference: {fileID: 0}
     - target: {fileID: 4852161584887105406, guid: 6a1f129935b6f489fb86702340482097, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -5079,10 +5092,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4852161584887105406, guid: 6a1f129935b6f489fb86702340482097, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: UnityEngine.CanvasGroup, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4852161584887105406, guid: 6a1f129935b6f489fb86702340482097, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852161584887105406, guid: 6a1f129935b6f489fb86702340482097, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_FloatArgument
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4852161584887105406, guid: 6a1f129935b6f489fb86702340482097, type: 3}
