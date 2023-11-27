@@ -115,7 +115,7 @@ public class VectorManager : MonoBehaviour
     public void SetVectorScale(bool toScale)
     {
         useAltScale = !toScale;
-        Debug.Log("VectorManager > SetVectorScale : useAltScale = " + useAltScale);
+        // Debug.Log("VectorManager > SetVectorScale : useAltScale = " + useAltScale);
     }
 }
 

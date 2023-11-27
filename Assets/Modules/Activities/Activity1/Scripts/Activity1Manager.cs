@@ -23,6 +23,7 @@ public class Activity1Manager : MonoBehaviour
     [Header("Feedback")]
     [SerializeField] private SoundEffect successBell;
     [SerializeField] private GameObject confetti;
+    [SerializeField] private bool volumeIsOn = true;
 
     private const float tol = 2f; // in degrees
     private bool isFirstLoad = true;
@@ -32,7 +33,7 @@ public class Activity1Manager : MonoBehaviour
         ClassicEulerAngles.OnValuesChanged += CheckAnswer;
     }
 
-    private void Disable()
+    private void OnDisable()
     {
         ClassicEulerAngles.OnValuesChanged -= CheckAnswer;
     }
@@ -122,11 +123,16 @@ public class Activity1Manager : MonoBehaviour
 
         if (sliders) sliders.SetInteractable(false);
 
-        if (successBell && TryGetComponent(out AudioSource audioSource))
+        if (volumeIsOn && successBell && TryGetComponent(out AudioSource audioSource))
         {
             successBell.Play(audioSource);
         }
 
         if (confetti) confetti.SetActive(true);
+    }
+
+    public void ToggleVolume(bool isOn)
+    {
+        volumeIsOn = isOn;
     }
 }
