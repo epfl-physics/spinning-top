@@ -115,9 +115,9 @@ public class TheoryManager : MonoBehaviour
 
         simMode = isTop ? SimMode.Top : SimMode.Wheel;
 
-        SetRotationDirection(psiDotSign == 1);
-
         Reset();
+
+        SetRotationDirection(psiDotSign == 1);
     }
 
     public void SetRotationDirection(bool isPositive)

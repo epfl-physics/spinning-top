@@ -154,7 +154,7 @@ public class TopSimulation : Simulation
         double deltaTime = Time.fixedDeltaTime / numSubsteps;
         for (int i = 0; i < numSubsteps; i++)
         {
-            if (x[0] == 0)
+            if (x[0] == 0 || x[0] == Math.PI)
                 RotateAroundY(deltaTime);
             else if (solver == Solver.Leapfrog)
                 TakeLeapfrogStep(deltaTime);
@@ -191,6 +191,7 @@ public class TopSimulation : Simulation
         // Handle the special case of the top pointing straight up or down
         x[2] += deltaTime * v[2];
         x[2] = WrapAngle(x[2]);
+        Debug.Log("Here");
     }
 
     private void TakeLeapfrogStep(double deltaTime)
