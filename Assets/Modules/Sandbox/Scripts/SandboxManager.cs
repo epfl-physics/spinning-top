@@ -48,6 +48,8 @@ public class SandboxManager : MonoBehaviour
     private void OnDisable()
     {
         TopSimulation.OnTopHasBecomeUnstable -= HandleTopHasBecomeUnstable;
+
+        Time.timeScale = 1;
     }
 
     private void Start()
@@ -227,6 +229,11 @@ public class SandboxManager : MonoBehaviour
     public void HandleTopHasBecomeUnstable()
     {
         if (oopsPanel) oopsPanel.SetActive(true);
+    }
+
+    public void SetSlowMotion(bool isSlowMotion)
+    {
+        Time.timeScale = isSlowMotion ? 0.25f : 1;
     }
 }
 

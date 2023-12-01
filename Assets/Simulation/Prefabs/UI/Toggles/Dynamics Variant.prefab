@@ -333,7 +333,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6eeff63dfe3a41d4a5e2890a5b6f7f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 715f4d5c2d1334b96b89f509a3aab7f2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -769,7 +769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1472864935
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1687,7 +1687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 575136615064058258, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: m_Name
-      value: Dynamics
+      value: Dynamics Variant
       objectReference: {fileID: 0}
     - target: {fileID: 575136615064058261, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: m_Pivot.x
@@ -1719,11 +1719,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 575136615064058261, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 385
+      value: 365
       objectReference: {fileID: 0}
     - target: {fileID: 575136615064058261, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 575136615064058261, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1755,7 +1755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 575136615064058261, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -10
+      value: -17.5
       objectReference: {fileID: 0}
     - target: {fileID: 575136615064058261, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -36,7 +36,6 @@ public class TheoryManager : MonoBehaviour
 
     private void OnDisable()
     {
-        Debug.Log("TheoryManager > OnDisable");
         Time.timeScale = 1;
     }
 

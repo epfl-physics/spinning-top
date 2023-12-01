@@ -675,7 +675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 575136615064058261, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 575136615064058261, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: m_LocalPosition.x
@@ -707,7 +707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 575136615064058261, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 10
+      value: 17.5
       objectReference: {fileID: 0}
     - target: {fileID: 575136615064058261, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -827,7 +827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3512359116386842902, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: textData.Array.data[1].text
-      value: Salle
+      value: Sol
       objectReference: {fileID: 0}
     - target: {fileID: 3512359116386842903, guid: 268c823ba9f9a434f8a761ef67a5cd19, type: 3}
       propertyPath: m_AnchorMax.y
