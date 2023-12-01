@@ -61,7 +61,7 @@ public class TopSimulation : Simulation
     private double thetaMaxRad;
     public float ThetaMax => (float)(thetaMaxRad * RAD2DEG);
 
-    public static event Action OnTopHasFallen;
+    // public static event Action OnTopHasFallen;
     public static event Action OnTopHasBecomeUnstable;
 
     private void Awake()
@@ -139,9 +139,17 @@ public class TopSimulation : Simulation
         {
             disk.localPosition = diskOffset * data.Direction;
             disk.rotation = Quaternion.Euler(0, -data.phi, data.theta);
-            disk.Rotate(Vector3.up, -data.psi, Space.Self);
-
-            if (modelIsWheel) disk.Rotate(Vector3.back, 90, Space.Self);
+            if (modelIsWheel)
+            {
+                // Orient the wheel perpendicular to the rod
+                disk.Rotate(Vector3.back, 90, Space.Self);
+                // Rotate the wheel about the axis
+                disk.Rotate(Vector3.right, -data.psi, Space.Self);
+            }
+            else
+            {
+                disk.Rotate(Vector3.up, -data.psi, Space.Self);
+            }
         }
     }
 
