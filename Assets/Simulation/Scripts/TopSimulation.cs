@@ -199,7 +199,6 @@ public class TopSimulation : Simulation
         // Handle the special case of the top pointing straight up or down
         x[2] += deltaTime * v[2];
         x[2] = WrapAngle(x[2]);
-        Debug.Log("Here");
     }
 
     private void TakeLeapfrogStep(double deltaTime)
