@@ -170,4 +170,27 @@ public class TheoryManager : MonoBehaviour
     {
         Time.timeScale = isSlowMotion ? 0.25f : 1;
     }
+
+    public void SetTrailVisibility(bool drawTrail)
+    {
+        if (topSim)
+        {
+            if (simMode == SimMode.Top)
+            {
+                topSim.UpdateTrail();
+                topSim.ClearTrail();
+            }
+            topSim.SetDrawTrail(drawTrail);
+        }
+
+        if (wheelSim)
+        {
+            if (simMode == SimMode.Wheel)
+            {
+                wheelSim.UpdateTrail();
+                wheelSim.ClearTrail();
+            }
+            wheelSim.SetDrawTrail(drawTrail);
+        }
+    }
 }

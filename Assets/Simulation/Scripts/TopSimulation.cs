@@ -173,12 +173,18 @@ public class TopSimulation : Simulation
         UpdateData();
         UpdateSimState(true);
         UpdateOrientation();
+        if (drawTrail) UpdateTrail();
     }
 
-    // private void UpdateTrail()
-    // {
-    //     if (trail && drawTrail) trail.localPosition = rodLength * data.Direction;
-    // }
+    public void UpdateTrail()
+    {
+        if (trail) trail.localPosition = rodLength * data.Direction;
+    }
+
+    public void ClearTrail()
+    {
+        if (trail) trail.GetComponent<TrailRenderer>().Clear();
+    }
 
     private void ComputeAccelerations()
     {
@@ -452,6 +458,11 @@ public class TopSimulation : Simulation
         }
     }
 
+    public void SetDrawTrail(bool value)
+    {
+        drawTrail = value;
+    }
+
     public void Reset()
     {
         // Compute the top's moment of inertia components
@@ -469,6 +480,9 @@ public class TopSimulation : Simulation
         UpdatePhysicalAppearance();
         // Point the top in the right direction
         UpdateOrientation();
+        // Reset the trail
+        UpdateTrail();
+        ClearTrail();
 
         Pause();
     }
