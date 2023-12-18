@@ -34,6 +34,11 @@ public class TheoryManager : MonoBehaviour
         if (vectors && vectorScaleToggle) vectors.SetVectorScale(vectorScaleToggle.isOn);
     }
 
+    private void OnDisable()
+    {
+        Time.timeScale = 1;
+    }
+
     public void Play()
     {
         if (topSim)
@@ -159,5 +164,33 @@ public class TheoryManager : MonoBehaviour
         SetFrictionCoefficient(includeFriction);
         // Reset again to make sure friction vector is redrawn
         ResetImmediately();
+    }
+
+    public void SetSlowMotion(bool isSlowMotion)
+    {
+        Time.timeScale = isSlowMotion ? 0.25f : 1;
+    }
+
+    public void SetTrailVisibility(bool drawTrail)
+    {
+        if (topSim)
+        {
+            if (simMode == SimMode.Top)
+            {
+                topSim.UpdateTrail();
+                topSim.ClearTrail();
+            }
+            topSim.SetDrawTrail(drawTrail);
+        }
+
+        if (wheelSim)
+        {
+            if (simMode == SimMode.Wheel)
+            {
+                wheelSim.UpdateTrail();
+                wheelSim.ClearTrail();
+            }
+            wheelSim.SetDrawTrail(drawTrail);
+        }
     }
 }

@@ -414,7 +414,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 61.5, y: 0}
+  m_AnchoredPosition: {x: 55.19998, y: 0}
   m_SizeDelta: {x: 112, y: 120}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &106418084
@@ -1473,8 +1473,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Notice how the angular momentum vector         follows the torque vector         
-    .
+  m_text: "Remarquez comment le vecteur du moment cin\xE9tique      suit le vecteur
+    du moment de force          ."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7bea0ee510519418e83160323e771f52, type: 2}
   m_sharedMaterial: {fileID: -4219023752200370933, guid: 7bea0ee510519418e83160323e771f52, type: 2}
@@ -2402,7 +2402,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -0.6, y: -3.4}
-  m_SizeDelta: {x: 192, y: 112}
+  m_SizeDelta: {x: 152, y: 104}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &368623362
 MonoBehaviour:
@@ -2424,7 +2424,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6eeff63dfe3a41d4a5e2890a5b6f7f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 715f4d5c2d1334b96b89f509a3aab7f2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2567,7 +2567,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &428811597
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3568,7 +3568,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 43.2, y: -13.1}
+  m_AnchoredPosition: {x: 36.9, y: -13.1}
   m_SizeDelta: {x: 72, y: 32}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &694899083
@@ -3657,7 +3657,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 697033183}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -3709,7 +3709,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 252.4, y: -21.309982}
-  m_SizeDelta: {x: 192, y: 112}
+  m_SizeDelta: {x: 152, y: 104}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &715645301
 MonoBehaviour:
@@ -3731,7 +3731,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6eeff63dfe3a41d4a5e2890a5b6f7f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 715f4d5c2d1334b96b89f509a3aab7f2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5038,7 +5038,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 20.000004, y: -159.99998}
-  m_SizeDelta: {x: 360, y: 155}
+  m_SizeDelta: {x: 360, y: 135}
   m_Pivot: {x: 0, y: 1}
 --- !u!225 &943927383
 CanvasGroup:
@@ -5125,7 +5125,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -0.6, y: -3.2}
-  m_SizeDelta: {x: 192, y: 112}
+  m_SizeDelta: {x: 152, y: 104}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &970198823
 MonoBehaviour:
@@ -5147,7 +5147,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6eeff63dfe3a41d4a5e2890a5b6f7f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 715f4d5c2d1334b96b89f509a3aab7f2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5473,7 +5473,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1090021770
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5626,8 +5626,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 104.97, y: -20.96}
-  m_SizeDelta: {x: 192, y: 112}
+  m_AnchoredPosition: {x: 102.68, y: -20.96}
+  m_SizeDelta: {x: 152, y: 104}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1138199088
 MonoBehaviour:
@@ -5649,7 +5649,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6eeff63dfe3a41d4a5e2890a5b6f7f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 715f4d5c2d1334b96b89f509a3aab7f2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -6857,7 +6857,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 42.2, y: 0}
+  m_AnchoredPosition: {x: 37.3, y: 0}
   m_SizeDelta: {x: 544, y: 128}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1356114230
@@ -8007,7 +8007,7 @@ MonoBehaviour:
     text: In which direction will the wheel precess as seen from above?
     visibleUI: {fileID: 0}
   - language: 1
-    text: "Quel est le sens de pr\xE9cession en vue d\u2019avion ?"
+    text: "Quel est le sens de la pr\xE9cession en vue d\u2019avion ?"
     visibleUI: {fileID: 0}
 --- !u!114 &1592837179
 MonoBehaviour:
@@ -8893,7 +8893,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679662071}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -9060,7 +9060,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 99.76, y: -21.31}
-  m_SizeDelta: {x: 192, y: 112}
+  m_SizeDelta: {x: 152, y: 104}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1726752581
 MonoBehaviour:
@@ -9082,7 +9082,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6eeff63dfe3a41d4a5e2890a5b6f7f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 715f4d5c2d1334b96b89f509a3aab7f2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -9134,8 +9134,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 48.02, y: -20.81}
-  m_SizeDelta: {x: 192, y: 112}
+  m_AnchoredPosition: {x: 46, y: -20.81}
+  m_SizeDelta: {x: 152, y: 104}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1733750283
 MonoBehaviour:
@@ -9157,7 +9157,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6eeff63dfe3a41d4a5e2890a5b6f7f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 715f4d5c2d1334b96b89f509a3aab7f2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -9231,12 +9231,12 @@ MonoBehaviour:
   textData:
   - language: 0
     text: Select the vector <color=#ffffff00>___</color> from the six options which
-      corresponds to the <b><color=#49C8D5>torque</color></b> <color=#ffffff00>______</color>
+      corresponds to the <b><color=#49C8D5>torque</color></b> <color=#ffffff00>____</color>
       due to gravity.
     visibleUI: {fileID: 1425880890}
   - language: 1
     text: "S\xE9lectionnez le vecteur <color=#ffffff00>___</color> correspondant
-      au <b><color=#49C8D5>moment de force</color></b> <color=#ffffff00>______</color>
+      au <b><color=#49C8D5>moment de force</color></b> <color=#ffffff00>____ </color>
       en cliquant sur la r\xE9ponse correcte."
     visibleUI: {fileID: 128212324}
 --- !u!114 &1744649052
@@ -9260,7 +9260,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Select the vector <color=#ffffff00>___</color> from the six options which
-    corresponds to the <b><color=#49C8D5>torque</color></b> <color=#ffffff00>______</color>
+    corresponds to the <b><color=#49C8D5>torque</color></b> <color=#ffffff00>____</color>
     due to gravity.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7bea0ee510519418e83160323e771f52, type: 2}
@@ -9577,7 +9577,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b6eeff63dfe3a41d4a5e2890a5b6f7f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 715f4d5c2d1334b96b89f509a3aab7f2, type: 3}
   m_Color: {r: 0.28627452, g: 0.78431374, b: 0.8352941, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -9998,7 +9998,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 118.5, y: -6.6}
+  m_AnchoredPosition: {x: 113.599976, y: -6.6}
   m_SizeDelta: {x: 144, y: 88}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2066100378
@@ -10145,13 +10145,12 @@ MonoBehaviour:
   - language: 0
     text: 'Vectors are not drawn to scale.
 
-      The angular momentum does not lie
-      perfectly along the rod due to a nonzero precession component.'
+      The angular momentum does not point
+      along the rod due to the precession.'
     visibleUI: {fileID: 0}
   - language: 1
-    text: "Les vecteurs ne sont pas \xE0 l'\xE9chelle.\nLe moment cin\xE9tique ne
-      se trouve pas parfaitement le long de la tige en raison d'une composante de
-      pr\xE9cession non nulle."
+    text: "Les vecteurs ne sont pas \xE0 l'\xE9chelle.\nLe moment cin\xE9tique n'est
+      pas orient\xE9 le long de la tige en raison de la pr\xE9cession."
     visibleUI: {fileID: 0}
 --- !u!1001 &1306557337016726016
 PrefabInstance:
@@ -10587,7 +10586,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -0, y: -40}
-  m_SizeDelta: {x: 340, y: 110}
+  m_SizeDelta: {x: 340, y: 95}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3663857227621889308
 MonoBehaviour:
@@ -10692,10 +10691,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Vectors are not drawn to scale.
-
-    The angular momentum does not lie
-    perfectly along the rod due to a nonzero precession component.'
+  m_text: "Les vecteurs ne sont pas \xE0 l'\xE9chelle.\nLe moment cin\xE9tique n'est
+    pas orient\xE9 le long de la tige en raison de la pr\xE9cession."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea838625e000443bb85ccb2eff18976f, type: 2}
   m_sharedMaterial: {fileID: 4303336837466598660, guid: ea838625e000443bb85ccb2eff18976f, type: 2}
@@ -10730,7 +10727,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 8
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -10943,6 +10940,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3929726221996154192, guid: ef9cc0bd6d73841ee830f5ef5fd562ca, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 74b917a847ad249178db8a5407191afe, type: 3}
     - target: {fileID: 3929726221996154193, guid: ef9cc0bd6d73841ee830f5ef5fd562ca, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -11368,6 +11369,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5045564196922625196, guid: f27975609b372448cba9402584d4f50b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 37ef46d0940394d089b029de7d4e819c, type: 3}
+    - target: {fileID: 5045564196922625196, guid: f27975609b372448cba9402584d4f50b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045564196922625196, guid: f27975609b372448cba9402584d4f50b, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045564196922625196, guid: f27975609b372448cba9402584d4f50b, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5045564196922625198, guid: f27975609b372448cba9402584d4f50b, type: 3}
       propertyPath: m_RootOrder
       value: 11

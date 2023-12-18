@@ -61,7 +61,7 @@ public class TopSimulation : Simulation
     private double thetaMaxRad;
     public float ThetaMax => (float)(thetaMaxRad * RAD2DEG);
 
-    public static event Action OnTopHasFallen;
+    // public static event Action OnTopHasFallen;
     public static event Action OnTopHasBecomeUnstable;
 
     private void Awake()
@@ -139,9 +139,17 @@ public class TopSimulation : Simulation
         {
             disk.localPosition = diskOffset * data.Direction;
             disk.rotation = Quaternion.Euler(0, -data.phi, data.theta);
-            disk.Rotate(Vector3.up, -data.psi, Space.Self);
-
-            if (modelIsWheel) disk.Rotate(Vector3.back, 90, Space.Self);
+            if (modelIsWheel)
+            {
+                // Orient the wheel perpendicular to the rod
+                disk.Rotate(Vector3.back, 90, Space.Self);
+                // Rotate the wheel about the axis
+                disk.Rotate(Vector3.right, -data.psi, Space.Self);
+            }
+            else
+            {
+                disk.Rotate(Vector3.up, -data.psi, Space.Self);
+            }
         }
     }
 
@@ -165,12 +173,18 @@ public class TopSimulation : Simulation
         UpdateData();
         UpdateSimState(true);
         UpdateOrientation();
+        if (drawTrail) UpdateTrail();
     }
 
-    // private void UpdateTrail()
-    // {
-    //     if (trail && drawTrail) trail.localPosition = rodLength * data.Direction;
-    // }
+    public void UpdateTrail()
+    {
+        if (trail) trail.localPosition = rodLength * data.Direction;
+    }
+
+    public void ClearTrail()
+    {
+        if (trail) trail.GetComponent<TrailRenderer>().Clear();
+    }
 
     private void ComputeAccelerations()
     {
@@ -191,7 +205,6 @@ public class TopSimulation : Simulation
         // Handle the special case of the top pointing straight up or down
         x[2] += deltaTime * v[2];
         x[2] = WrapAngle(x[2]);
-        Debug.Log("Here");
     }
 
     private void TakeLeapfrogStep(double deltaTime)
@@ -445,6 +458,11 @@ public class TopSimulation : Simulation
         }
     }
 
+    public void SetDrawTrail(bool value)
+    {
+        drawTrail = value;
+    }
+
     public void Reset()
     {
         // Compute the top's moment of inertia components
@@ -462,6 +480,9 @@ public class TopSimulation : Simulation
         UpdatePhysicalAppearance();
         // Point the top in the right direction
         UpdateOrientation();
+        // Reset the trail
+        UpdateTrail();
+        ClearTrail();
 
         Pause();
     }
