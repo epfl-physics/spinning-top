@@ -6230,7 +6230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1501862272995550037, guid: 980cb54dcf56341dd91bf77dc3996704, type: 3}
       propertyPath: textData.Array.data[1].text
-      value: "Comment d\xE9crire de mani\xE8re quantative le mouvement d'un tel syst\xE8me
+      value: "Comment d\xE9crire de mani\xE8re quantitative le mouvement d'un tel syst\xE8me
         ? Pour commencer, on remarque qu'il faut <b>trois nombres</b> pour d\xE9crire
         compl\xE8tement l'orientation de la toupie \xE0 chaque instant."
       objectReference: {fileID: 0}
